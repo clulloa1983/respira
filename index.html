@@ -7,6 +7,9 @@
 <meta name="theme-color" content="#f3f5f0">
 <meta name="description" content="Respira: práctica guiada de respiración consciente. Elige una técnica y practícala con guía visual, tonos y voz. Funciona sin conexión.">
 <title>Respira · Respiración consciente guiada</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="Respira">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2032%2032%27%3E%3Crect%20width%3D%2732%27%20height%3D%2732%27%20rx%3D%278%27%20fill%3D%27%232E6A54%27%2F%3E%3Ccircle%20cx%3D%2716%27%20cy%3D%2716%27%20r%3D%2710.5%27%20fill%3D%27none%27%20stroke%3D%27%23F3F5F0%27%20stroke-width%3D%272.5%27%2F%3E%3Cpath%20d%3D%27M8.75%2016c1.9-4.6%205.3-4.6%207.25%200s5.35%204.6%207.25%200%27%20fill%3D%27none%27%20stroke%3D%27%23F3F5F0%27%20stroke-width%3D%272.75%27%20stroke-linecap%3D%27round%27%2F%3E%3C%2Fsvg%3E">
 <script>
 /* Aplica tema y movimiento guardados antes del primer pintado (evita parpadeo). */
@@ -336,7 +339,7 @@ body[data-view="practice"] #storageBanner { display: none; }
 
 fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 legend { font-weight: 650; margin-bottom: var(--sp-2); padding: 0; }
-select, input[type="number"] {
+select, input[type="number"], input[type="time"] {
   font: inherit; color: var(--text); background-color: var(--surface);
   border: 1px solid var(--border-strong); border-radius: var(--r-md);
   min-height: 2.75rem; padding: var(--sp-2) var(--sp-3); max-width: 100%;
@@ -348,7 +351,7 @@ select {
   background-position: calc(100% - 1.25rem) 55%, calc(100% - .95rem) 55%;
   background-size: .32rem .32rem; background-repeat: no-repeat;
 }
-select:hover, input[type="number"]:hover { border-color: var(--text-muted); }
+select:hover, input[type="number"]:hover, input[type="time"]:hover { border-color: var(--text-muted); }
 
 input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; min-height: 2.75rem; margin: 0; background: transparent; cursor: pointer; accent-color: var(--accent); }
 input[type="range"]::-webkit-slider-runnable-track { height: .375rem; border-radius: var(--r-pill); background: var(--surface-3); box-shadow: inset 0 0 0 1px var(--border-strong); }
@@ -404,6 +407,8 @@ input[type="range"]:focus-visible { outline: 3px solid var(--focus); outline-off
 .setting.stack { flex-direction: column; align-items: stretch; gap: var(--sp-2); }
 .setting.stack select { width: 100%; min-width: 0; }
 .range-row { display: flex; align-items: center; gap: var(--sp-4); }
+.reminder-row { display: flex; flex-wrap: wrap; gap: var(--sp-3) var(--sp-4); }
+.reminder-row label { display: grid; gap: var(--sp-1); }
 .range-row output { min-width: 3.75rem; padding: .25rem .5rem; border-radius: var(--r-sm); background: var(--surface-2); text-align: center; font-variant-numeric: tabular-nums; font-weight: 650; font-size: .9375rem; }
 
 /* =========================================================
@@ -413,6 +418,15 @@ input[type="range"]:focus-visible { outline: 3px solid var(--focus); outline-off
 .hero h1 { margin-bottom: var(--sp-4); }
 .lede { font-size: clamp(1.0625rem, 1rem + .3vw, 1.1875rem); color: var(--text-muted); max-width: 36rem; }
 .last-practice { margin: var(--sp-5) 0 0; }
+.streak { margin-top: var(--sp-5); display: grid; gap: var(--sp-3); max-width: 26rem; padding: var(--sp-4); border-radius: var(--r-lg); background: var(--surface); border: 1px solid var(--border); }
+.streak-main { margin: 0; display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 var(--sp-2); font-weight: 600; }
+.streak-main strong { font-family: var(--font-serif); font-size: var(--fs-2xl); font-weight: 500; line-height: 1; color: var(--accent-text); font-variant-numeric: tabular-nums; }
+.week-dots { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(7, minmax(0, 2.25rem)); gap: var(--sp-2); }
+.wd { display: grid; place-items: center; aspect-ratio: 1; border-radius: 50%; border: 1px solid var(--border-strong); color: var(--text-muted); font-size: var(--fs-xs); font-weight: 650; }
+.wd.done { background: var(--accent); border-color: var(--accent); color: var(--accent-contrast); }
+.wd.today { outline: 2px solid var(--accent); outline-offset: 2px; }
+.streak-meta { margin: 0; font-size: var(--fs-sm); line-height: 1.45; color: var(--text-muted); }
+.streak-meta a { white-space: nowrap; }
 .last-practice .btn { text-align: left; }
 .last-practice .muted { font-weight: 400; }
 .hero-orb { position: relative; width: clamp(7rem, 22vw, 14rem); aspect-ratio: 1; margin-right: clamp(0rem, 4vw, 3rem); }
@@ -539,6 +553,11 @@ input[type="range"]:focus-visible { outline: 3px solid var(--focus); outline-off
 .inline-list { display: flex; flex-wrap: wrap; gap: var(--sp-2); list-style: none; padding: 0; margin: 0; }
 .inline-list li { padding: .25rem .75rem; border-radius: var(--r-pill); background: var(--surface-2); font-size: .9375rem; }
 .focus-line { padding: var(--sp-3) var(--sp-4); border-radius: var(--r-md); background: var(--surface-2); }
+.refs { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--sp-4); }
+.ref { display: grid; gap: .125rem; padding-left: var(--sp-3); border-left: 2px solid var(--border); }
+.ref a { font-weight: 550; overflow-wrap: anywhere; }
+.ref-type { font-size: var(--fs-xs); letter-spacing: var(--track-caps); text-transform: uppercase; color: var(--text-muted); font-weight: 650; }
+.refs-note { margin-top: var(--sp-4); }
 
 .phase-list { list-style: none; padding: 0; margin: var(--sp-4) 0 0; display: grid; gap: var(--sp-2); grid-template-columns: repeat(auto-fit, minmax(min(100%, 9.5rem), 1fr)); }
 .phase-item { --c: var(--accent-text); display: grid; gap: .125rem; align-content: start; padding: var(--sp-3) var(--sp-4) var(--sp-4); border-radius: var(--r-md); background: var(--surface-2); box-shadow: inset 0 3px 0 var(--c); }
@@ -837,7 +856,10 @@ dialog p { color: var(--text-muted); }
 
 <main id="main" tabindex="-1">
   <div class="wrap" id="storageBanner" hidden>
-    <p class="banner" role="note"><strong>Tu historial no se guardará.</strong> Este navegador no permite almacenamiento local al abrir el archivo directamente. La app funciona igual, pero los datos se perderán al cerrar la página.</p>
+    <p class="banner" role="note"><strong>Tu historial no se guardará.</strong> Este navegador no permite almacenamiento local. La app funciona igual, pero los datos se perderán al cerrar la página.</p>
+  </div>
+  <div class="wrap" id="loadError" hidden>
+    <p class="banner" role="alert"><strong>No se pudo cargar el contenido.</strong> Revisa tu conexión y vuelve a cargar la página.</p>
   </div>
 
   <!-- ===================== INICIO ===================== -->
@@ -848,6 +870,7 @@ dialog p { color: var(--text-muted); }
           <p class="eyebrow">Respiración consciente, guiada</p>
           <h1 id="home-title" tabindex="-1" data-focus>Un momento para respirar</h1>
           <p class="lede">Elige una técnica según lo que tu cuerpo necesita ahora y practícala con una guía visual, tonos suaves y voz. Todo funciona sin conexión.</p>
+          <div class="streak" id="streakCard" hidden></div>
           <p class="last-practice" id="lastPractice" hidden></p>
         </div>
         <div class="hero-orb" aria-hidden="true"><span></span><span></span><span><svg viewBox="0 0 72 72" focusable="false"><path d="M18 36c4.5-11 13.5-11 18 0s13.5 11 18 0" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg></span><i class="hero-dot"></i></div>
@@ -1032,6 +1055,35 @@ dialog p { color: var(--text-muted); }
         </div>
       </div>
       <div class="settings-stack">
+        <section class="card" aria-labelledby="setDailyTitle">
+          <h2 id="setDailyTitle" class="h-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="4" y="5.5" width="16" height="14" rx="2.5"/><path d="M4 10h16"/><path d="M8.5 3.5v4"/><path d="M15.5 3.5v4"/><path d="m9.25 14.75 1.75 1.75 3.75-3.75"/></svg>Práctica diaria</h2>
+          <div class="setting stack">
+            <label for="setGoal">Meta semanal</label>
+            <select id="setGoal" aria-describedby="setGoalDesc">
+              <option value="1">1 día por semana</option>
+              <option value="2">2 días por semana</option>
+              <option value="3">3 días por semana</option>
+              <option value="4">4 días por semana</option>
+              <option value="5">5 días por semana</option>
+              <option value="6">6 días por semana</option>
+              <option value="7">Todos los días</option>
+            </select>
+            <p class="desc" id="setGoalDesc">Se muestra en Inicio junto a tu racha.</p>
+          </div>
+          <div class="setting stack" role="group" aria-labelledby="remTitle" aria-describedby="remDesc">
+            <span class="setting-label" id="remTitle">Recordatorio en tu calendario</span>
+            <p class="desc" id="remDesc">Respira no puede enviarte notificaciones por sí sola. Crea un evento que se repite y tu calendario te avisará a la hora elegida.</p>
+            <div class="reminder-row">
+              <label for="setRemTime">Hora<input type="time" id="setRemTime" step="300" required></label>
+              <label for="setRemDays">Días<select id="setRemDays"><option value="daily">Todos los días</option><option value="weekdays">De lunes a viernes</option></select></label>
+            </div>
+            <div class="btn-row">
+              <button type="button" class="btn btn-secondary" id="btnIcs">Descargar evento (.ics)</button>
+              <a class="btn btn-ghost" id="lnkGcal" href="https://calendar.google.com/" target="_blank" rel="noopener">Agregar a Google Calendar</a>
+            </div>
+            <p class="desc">El archivo .ics sirve para Apple Calendar, Outlook y la mayoría de los calendarios: ábrelo después de descargarlo.</p>
+          </div>
+        </section>
         <section class="card" aria-labelledby="setSoundTitle">
           <h2 id="setSoundTitle" class="h-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9.5 17.5V6.75l9.5-2v10.75"/><circle cx="7" cy="17.5" r="2.5"/><circle cx="16.5" cy="15.5" r="2.5"/></svg>Sonido</h2>
           <div class="setting">
@@ -1051,6 +1103,21 @@ dialog p { color: var(--text-muted); }
           <div class="setting">
             <button type="button" class="btn btn-secondary" id="testTones">Probar tonos</button>
           </div>
+        </section>
+
+        <section class="card" aria-labelledby="setHapticTitle" id="hapticCard" hidden>
+          <h2 id="setHapticTitle" class="h-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="8" y="4" width="8" height="16" rx="2"/><path d="M11 17h2"/><path d="M4.75 9v6"/><path d="M19.25 9v6"/><path d="M2 11v2"/><path d="M22 11v2"/></svg>Vibración</h2>
+          <div class="setting">
+            <div>
+              <label for="setHaptics">Vibrar al cambiar de fase</label>
+              <p class="desc" id="setHapticsDesc">Para practicar con los ojos cerrados: al inhalar, pulsos que se alargan; al exhalar, pulsos que se acortan; dos toques al retener y uno al sostener vacío.</p>
+            </div>
+            <input type="checkbox" role="switch" class="switch" id="setHaptics" aria-describedby="setHapticsDesc">
+          </div>
+          <div class="setting">
+            <button type="button" class="btn btn-secondary" id="testHaptics">Probar vibración</button>
+          </div>
+          <p class="desc">Funciona mientras la pantalla está encendida; Respira intenta mantenerla así durante la práctica. Si el teléfono está en modo silencio, algunos equipos no vibran.</p>
         </section>
 
         <section class="card" aria-labelledby="setVoiceTitle">
@@ -1148,228 +1215,130 @@ dialog p { color: var(--text-muted); }
 
 /* =========================================================
    1. DATOS
-   Para añadir una técnica, agrega un objeto a TECHNIQUES
-   (ver README.md). La lógica no necesita cambios.
+   El contenido vive en data/ y se carga al iniciar (loadContent):
+   - data/techniques.json: lo que no depende del idioma (fases y
+     segundos, visual, etiquetas, límites, variantes).
+   - data/locales/<idioma>.json: los textos de técnicas, filtros
+     y asistente, enlazados por id.
+   Para añadir una técnica, agrégala en ambos archivos (ver
+   README.md). La lógica no necesita cambios.
    ========================================================= */
 
-const PHASE_LABEL = Object.freeze({ inhale: 'Inhala', hold: 'Retén', exhale: 'Exhala', holdEmpty: 'Sostén vacío' });
+const CONTENT_LANG = 'es';
+const PHASE_TYPES = ['inhale', 'hold', 'exhale', 'holdEmpty'];
 const COUNTDOWN_MS = 3000;
 const MIN_SAVE_MS = 30000;
 
-const TECHNIQUES = [
-  {
-    id: '478',
-    name: 'Técnica 4-7-8',
-    tagline: 'Respiración relajante',
-    visual: 'circle',
-    tags: { focus: ['parasympathetic'], moment: ['sleep', 'anxiety'], benefit: ['sleep', 'anxiety'] },
-    summary: { benefit: 'Dormir mejor y calmar la ansiedad aguda', moment: 'Antes de dormir, ansiedad o pánico' },
-    focusText: 'Calma parasimpática',
-    why: 'La exhalación prolongada estimula el nervio vago y activa la respuesta parasimpática, la que calma al cuerpo. Así ayuda a bajar la frecuencia cardíaca, la presión arterial y el cortisol.',
-    moments: ['Antes de dormir', 'Ansiedad o pánico', 'Irritación', 'Estrés acumulado'],
-    benefits: ['Sueño', 'Ansiedad aguda', 'Control de impulsos'],
-    dose: 'Empieza con 4 ciclos y avanza hasta 8 o más con la práctica. Al menos 2 veces al día; cada sesión dura menos de 2 minutos.',
-    posture: 'Siéntate o acuéstate en una postura cómoda, con los hombros sueltos.',
-    steps: [
-      'Siéntate o acuéstate en una postura cómoda.',
-      'Inhala por la nariz, en silencio, durante 4 segundos.',
-      'Retén el aire durante 7 segundos.',
-      'Exhala por la boca durante 8 segundos, con los labios fruncidos y un sonido «whoosh».',
-      'Eso es un ciclo (19 s). Empieza con 4 ciclos.',
-    ],
-    precautions: [
-      'Puede causar mareo las primeras veces: practícala en posición sentada o acostada.',
-      'Evita la retención si tienes EPOC, asma grave u otra enfermedad pulmonar: el CO₂ retenido puede resultar incómodo.',
-    ],
-    defaults: { mode: 'cycles', cycles: 4, minutes: 1, variant: 'standard' },
-    limits: { cycles: [1, 12], minutes: [1, 4] },
-    recommendedCycles: 4,
-    recommendNote: 'Sugerencia: empieza con 4 ciclos y avanza hasta 8 o más a medida que ganes práctica.',
-    variantControl: { kind: 'switch', label: 'Modo principiante', description: '2 · 3,5 · 4 s. Mismo ritmo proporcional: lo importante es la cadencia, no los segundos.', on: 'beginner', off: 'standard' },
-    variants: [
-      {
-        id: 'standard', label: 'Estándar',
-        phases: [
-          { type: 'inhale', seconds: 4, cue: 'Por la nariz, en silencio' },
-          { type: 'hold', seconds: 7, cue: 'Sostén el aire con suavidad' },
-          { type: 'exhale', seconds: 8, cue: 'Por la boca, labios fruncidos: suelta con un «whoosh»' },
-        ],
-      },
-      {
-        id: 'beginner', label: 'Principiante', tag: 'principiante', maxCycles: 8,
-        phases: [
-          { type: 'inhale', seconds: 2, cue: 'Por la nariz, en silencio' },
-          { type: 'hold', seconds: 3.5, cue: 'Sostén el aire con suavidad' },
-          { type: 'exhale', seconds: 4, cue: 'Por la boca, labios fruncidos: suelta con un «whoosh»' },
-        ],
-      },
-    ],
-  },
-  {
-    id: 'box',
-    name: 'Respiración cuadrada',
-    tagline: 'Box breathing',
-    visual: 'box',
-    tags: { focus: ['hrv', 'alert'], moment: ['pressure'], benefit: ['focus'] },
-    summary: { benefit: 'Calma con alerta mental', moment: 'Alta presión, concentración serena' },
-    focusText: 'Equilibrio simpático/parasimpático · calma con alerta',
-    why: 'Sus cuatro fases iguales equilibran los sistemas simpático y parasimpático. Las retenciones breves elevan levemente el CO₂ y ayudan a estabilizar el ritmo cardíaco.',
-    moments: ['Situaciones de alta presión (trabajo, deporte)', 'Cuando necesitas concentración serena'],
-    benefits: ['Calma con alerta mental', 'Rendimiento cognitivo bajo presión'],
-    dose: '4 ciclos o más, según lo que necesites.',
-    posture: 'Siéntate con la espalda erguida y los hombros sueltos.',
-    steps: [
-      'Siéntate con la espalda erguida (es preferible practicarla en posición sentada).',
-      'Inhala durante 4 segundos.',
-      'Retén con los pulmones llenos durante 4 segundos.',
-      'Exhala durante 4 segundos.',
-      'Sostén con los pulmones vacíos durante 4 segundos.',
-      'Eso es un ciclo (16 s). Repite 4 ciclos o más.',
-    ],
-    precautions: [
-      'Si tienes EPOC o insuficiencia respiratoria, acorta o evita las retenciones.',
-      'Es preferible practicarla en posición sentada.',
-    ],
-    defaults: { mode: 'cycles', cycles: 4, minutes: 2, variant: 'default' },
-    limits: { cycles: [1, 40], minutes: [1, 10] },
-    variants: [
-      {
-        id: 'default', label: 'Cuadrada',
-        phases: [
-          { type: 'inhale', seconds: 4, cue: 'Llena los pulmones de forma pareja' },
-          { type: 'hold', seconds: 4, cue: 'Pulmones llenos, sin tensión' },
-          { type: 'exhale', seconds: 4, cue: 'Suelta el aire de forma lenta y pareja' },
-          { type: 'holdEmpty', seconds: 4, cue: 'Pulmones vacíos, en quietud' },
-        ],
-      },
-    ],
-  },
-  {
-    id: 'coherent',
-    name: 'Respiración coherente',
-    tagline: 'Coherencia cardíaca · resonante',
-    visual: 'circle',
-    tags: { focus: ['hrv'], moment: ['break', 'overload'], benefit: ['hrv'] },
-    summary: { benefit: 'Regular el estrés, resiliencia', moment: 'Rutina diaria, pausas, sobrecarga emocional' },
-    focusText: 'Variabilidad de la frecuencia cardíaca (HRV), barorreflejo',
-    why: 'Respirar a unas 6 respiraciones por minuto (~0,1 Hz) entra en resonancia con el barorreflejo y amplifica la arritmia sinusal respiratoria. El resultado es una mayor variabilidad de la frecuencia cardíaca (HRV), asociada a una mejor regulación del estrés.',
-    moments: ['Rutina diaria', 'Pausas en la jornada', 'Sobrecarga emocional'],
-    benefits: ['Regulación del estrés', 'Resiliencia física y mental'],
-    dose: '5 a 10 minutos diarios.',
-    posture: 'Adopta una postura cómoda y deja que el aire fluya sin pausas.',
-    steps: [
-      'Adopta una postura cómoda.',
-      'Inhala de forma suave y continua (5 s en el ritmo base).',
-      'Exhala sin pausa entre una fase y otra (5 s en el ritmo base).',
-      'Mantén el ritmo, cerca de 6 respiraciones por minuto, durante 5 a 10 minutos.',
-    ],
-    precautions: [
-      'Es muy segura. Si notas fatiga o sensación de hiperventilación, ajusta el ritmo a uno cómodo.',
-    ],
-    defaults: { mode: 'minutes', cycles: 30, minutes: 5, variant: '5-5' },
-    limits: { cycles: [1, 180], minutes: [1, 30] },
-    variantControl: { kind: 'radio', label: 'Ritmo' },
-    variants: [
-      {
-        id: '5-5', label: 'Ritmo 5/5', description: '≈6 respiraciones por minuto (~0,1 Hz).',
-        phases: [
-          { type: 'inhale', seconds: 5, cue: 'Suave y continuo' },
-          { type: 'exhale', seconds: 5, cue: 'Suelta sin pausa, sin forzar' },
-        ],
-      },
-      {
-        id: '5.5-5.5', label: 'Ritmo 5,5/5,5', description: '≈5,5 respiraciones por minuto: la que más aumentó la HRV en el estudio citado.',
-        phases: [
-          { type: 'inhale', seconds: 5.5, cue: 'Suave y continuo' },
-          { type: 'exhale', seconds: 5.5, cue: 'Suelta sin pausa, sin forzar' },
-        ],
-      },
-      {
-        id: '4-6', label: 'Ritmo 4/6', description: 'Exhalación prolongada, más parasimpática.',
-        phases: [
-          { type: 'inhale', seconds: 4, cue: 'Suave y continuo' },
-          { type: 'exhale', seconds: 6, cue: 'Suelta despacio, más largo que al inhalar' },
-        ],
-      },
-    ],
-  },
-  {
-    id: 'diaphragmatic',
-    name: 'Respiración diafragmática',
-    tagline: 'Respiración abdominal',
-    visual: 'circle',
-    tags: { focus: ['parasympathetic'], moment: ['sleep', 'break', 'waking'], benefit: ['muscle'] },
-    summary: { benefit: 'Soltar tensión muscular, estrés crónico', moment: 'Al despertar, antes de dormir, pausas' },
-    focusText: 'Calma parasimpática',
-    why: 'El movimiento amplio del diafragma estimula el nervio vago y favorece la calma parasimpática. Además mejora el intercambio gaseoso y ayuda a reducir la tensión muscular y la presión arterial.',
-    moments: ['Al despertar', 'Antes de dormir', 'Pausas laborales', 'Tensión muscular'],
-    benefits: ['Estrés crónico', 'Tensión muscular', 'Oxigenación', 'Elasticidad pulmonar'],
-    dose: '5 a 10 minutos diarios.',
-    posture: 'Acuéstate boca arriba o siéntate con la espalda erguida. Una mano en el pecho y otra en el abdomen: el abdomen sube, el pecho casi no se mueve.',
-    steps: [
-      'Acuéstate boca arriba o siéntate con la espalda erguida.',
-      'Coloca una mano en el pecho y otra en el abdomen.',
-      'Inhala por la nariz durante 4 segundos llevando el aire al abdomen: el abdomen sube y el pecho casi no se mueve.',
-      'Retén el aire durante 2 segundos.',
-      'Exhala por la boca durante 6 segundos, con los labios fruncidos.',
-    ],
-    precautions: [
-      'No hagas pujo ni maniobras tipo Valsalva si tienes enfermedad valvular o coronaria, ni tras una cirugía abdominal u ocular reciente.',
-    ],
-    defaults: { mode: 'minutes', cycles: 25, minutes: 5, variant: 'default' },
-    limits: { cycles: [1, 150], minutes: [1, 30] },
-    variants: [
-      {
-        id: 'default', label: 'Pautada',
-        phases: [
-          { type: 'inhale', seconds: 4, cue: 'Por la nariz, lleva el aire al abdomen' },
-          { type: 'hold', seconds: 2, cue: 'Pausa breve, sin apretar' },
-          { type: 'exhale', seconds: 6, cue: 'Por la boca, labios fruncidos' },
-        ],
-      },
-    ],
-  },
-];
+/* Se completan con loadContent() antes de init(). */
+const PHASE_LABEL = {};
+const TECHNIQUES = [];
+const TAXONOMY = [];
+const NEEDS = [];
 
-const TAXONOMY = [
-  {
-    key: 'focus', label: 'Foco fisiológico',
-    options: [
-      { id: 'parasympathetic', label: 'Calma parasimpática' },
-      { id: 'hrv', label: 'Equilibrio autonómico / HRV' },
-      { id: 'alert', label: 'Calma con alerta' },
-    ],
-  },
-  {
-    key: 'moment', label: 'Momento',
-    options: [
-      { id: 'sleep', label: 'Antes de dormir' },
-      { id: 'anxiety', label: 'Ansiedad o pánico' },
-      { id: 'pressure', label: 'Alta presión / concentración' },
-      { id: 'break', label: 'Pausa en la jornada' },
-      { id: 'waking', label: 'Al despertar' },
-      { id: 'overload', label: 'Sobrecarga emocional' },
-    ],
-  },
-  {
-    key: 'benefit', label: 'Beneficio',
-    options: [
-      { id: 'sleep', label: 'Dormir mejor' },
-      { id: 'anxiety', label: 'Reducir ansiedad' },
-      { id: 'focus', label: 'Enfoque' },
-      { id: 'hrv', label: 'Resiliencia / HRV' },
-      { id: 'muscle', label: 'Soltar tensión muscular' },
-    ],
-  },
-];
+/* Nivel de llenado de los pulmones (0 = vacíos, 1 = llenos) al empezar y al
+   terminar cada fase. Por defecto, inhalar llena (1), exhalar vacía (0) y las
+   retenciones mantienen el nivel; «to» permite fases parciales, como las dos
+   inhalaciones del suspiro cíclico. El ciclo se repite, así que la primera fase
+   parte del nivel con que termina la última (por eso se recorre dos veces). */
+function phaseLevels(phases) {
+  let level = 0;
+  const out = [];
+  for (let i = 0; i < phases.length * 2; i++) {
+    const p = phases[i % phases.length];
+    const from = level;
+    const to = p.to ?? (p.type === 'inhale' ? 1 : p.type === 'exhale' ? 0 : from);
+    if (i >= phases.length) out.push({ from, to });
+    level = to;
+  }
+  return out;
+}
 
-const NEEDS = [
-  { id: 'sleep', label: 'Dormir mejor', hint: 'Soltar el día antes de acostarme', technique: '478', reason: 'Su exhalación prolongada activa la calma parasimpática. Es ideal antes de dormir y dura menos de 2 minutos.' },
-  { id: 'anxiety', label: 'Calmar la ansiedad', hint: 'Ansiedad, pánico o irritación', technique: '478', reason: 'Pensada para momentos de ansiedad o pánico: la exhalación larga ayuda a bajar la frecuencia cardíaca.' },
-  { id: 'focus', label: 'Concentrarme bajo presión', hint: 'Trabajo, deporte, un momento exigente', technique: 'box', reason: 'Da calma sin perder la alerta mental y favorece el rendimiento cognitivo bajo presión.' },
-  { id: 'reset', label: 'Una pausa para regularme', hint: 'Estrés del día o sobrecarga emocional', technique: 'coherent', reason: 'Respirar a ~6 respiraciones por minuto aumenta la variabilidad cardíaca (HRV) y regula el estrés.' },
-  { id: 'tension', label: 'Soltar tensión del cuerpo', hint: 'Tensión muscular acumulada', technique: 'diaphragmatic', reason: 'El movimiento del diafragma ayuda a reducir la tensión muscular y favorece la calma.' },
-];
+/* Une los datos neutros con los textos de un idioma. Si falta un texto,
+   sobra uno o una fase es inválida, falla con la lista completa de errores. */
+function buildContent(data, text) {
+  const errors = [];
+  const req = (obj, key, where) => {
+    const v = obj == null ? undefined : obj[key];
+    if (v == null) errors.push(`falta ${where}`);
+    return v;
+  };
+  const extra = (obj, ids, where) => {
+    for (const k of Object.keys(obj || {})) if (!ids.includes(k)) errors.push(`sobra ${where}.${k} (no existe en los datos)`);
+  };
+
+  const phaseLabels = Object.fromEntries(PHASE_TYPES.map((type) => [type, req(text.phaseLabels, type, `phaseLabels.${type}`)]));
+
+  const references = new Map();
+  for (const r of data.references || []) {
+    const at = `references.${r.id}`;
+    for (const k of ['type', 'title', 'source', 'url']) req(r, k, `${at}.${k}`);
+    if (r.url && !/^https:\/\//.test(r.url)) errors.push(`${at}.url debe empezar con https://`);
+    references.set(r.id, { ...r, typeLabel: req(text.referenceTypes, r.type, `referenceTypes.${r.type}`) });
+  }
+
+  const TECH_TEXT = ['name', 'tagline', 'summary', 'focusText', 'why', 'evidence', 'moments', 'benefits', 'dose', 'posture', 'steps', 'precautions'];
+  const techniques = data.techniques.map((d) => {
+    const at = `techniques.${d.id}`;
+    const { variants: xVariants, variantControl: xControl, ...xt } = req(text.techniques, d.id, at) || {};
+    for (const k of TECH_TEXT) req(xt, k, `${at}.${k}`);
+    if (d.recommendedCycles) req(xt, 'recommendNote', `${at}.recommendNote`);
+    const t = { ...xt, ...d };
+    if (!d.refs || !d.refs.length) errors.push(`${at}.refs: se necesita al menos una referencia`);
+    t.refs = (d.refs || []).map((id) => references.get(id) || errors.push(`${at}.refs: la referencia «${id}» no existe`)).filter((r) => typeof r === 'object');
+    if (d.variantControl) {
+      req(xControl, 'label', `${at}.variantControl.label`);
+      t.variantControl = { ...xControl, ...d.variantControl };
+    }
+    extra(xVariants, d.variants.map((v) => v.id), `${at}.variants`);
+    t.variants = d.variants.map((dv) => {
+      const av = `${at}.variants.${dv.id}`;
+      const { cues = [], labels = [], ...xv } = req(xVariants, dv.id, av) || {};
+      req(xv, 'label', `${av}.label`);
+      if (cues.length !== dv.phases.length) errors.push(`${av}.cues: se esperaban ${dv.phases.length} y hay ${cues.length}`);
+      if (labels.length && labels.length !== dv.phases.length) errors.push(`${av}.labels: se esperaban ${dv.phases.length} y hay ${labels.length}`);
+      dv.phases.forEach((p, i) => {
+        if (!PHASE_TYPES.includes(p.type) || !(p.seconds > 0)) errors.push(`fase ${i + 1} inválida en ${d.id}/${dv.id}`);
+        if (p.to != null && !(p.to >= 0 && p.to <= 1)) errors.push(`fase ${i + 1} de ${d.id}/${dv.id}: «to» debe estar entre 0 y 1`);
+      });
+      const levels = phaseLevels(dv.phases);
+      levels.forEach(({ from, to }, i) => {
+        const type = dv.phases[i].type;
+        if ((type === 'inhale' && !(to > from)) || (type === 'exhale' && !(to < from))) errors.push(`fase ${i + 1} de ${d.id}/${dv.id}: «${type}» debe ${type === 'inhale' ? 'subir' : 'bajar'} el nivel (${from} → ${to})`);
+      });
+      return {
+        ...xv,
+        ...dv,
+        phases: dv.phases.map((p, i) => ({ ...p, ...levels[i], label: labels[i] || phaseLabels[p.type], cue: cues[i] ?? '' })),
+      };
+    });
+    if (t.variants.some((v) => v.phases.some((p) => p.type === 'hold' || p.type === 'holdEmpty'))) {
+      t.precautions = [...(t.precautions || []), req(text.notices, 'holds', 'notices.holds')];
+    }
+    return t;
+  });
+  extra(text.techniques, data.techniques.map((t) => t.id), 'techniques');
+
+  const taxonomy = data.taxonomy.map((g) => {
+    const at = `taxonomy.${g.key}`;
+    const xg = req(text.taxonomy, g.key, at) || {};
+    return {
+      key: g.key,
+      label: req(xg, 'label', `${at}.label`),
+      options: g.options.map((id) => ({ id, label: req(xg.options, id, `${at}.options.${id}`) })),
+    };
+  });
+
+  const needs = data.needs.map((n) => {
+    const at = `needs.${n.id}`;
+    const xn = req(text.needs, n.id, at) || {};
+    if (!data.techniques.some((t) => t.id === n.technique)) errors.push(`${at}: la técnica «${n.technique}» no existe`);
+    return { id: n.id, label: req(xn, 'label', `${at}.label`), hint: req(xn, 'hint', `${at}.hint`), technique: n.technique, reason: req(xn, 'reason', `${at}.reason`) };
+  });
+  extra(text.needs, data.needs.map((n) => n.id), 'needs');
+
+  if (errors.length) throw new Error(`Contenido «${text.locale || '?'}» inválido:\n- ${[...new Set(errors)].join('\n- ')}`);
+  return { phaseLabels, techniques, taxonomy, needs };
+}
 
 /* =========================================================
    2. UTILIDADES
@@ -1395,7 +1364,8 @@ const fmtMinutes = (sec) => { const m = sec / 60; return m < 10 ? fmtNum(Math.ro
 const plural = (n, one, many) => `${n} ${n === 1 ? one : many}`;
 const cycleSeconds = (phases) => phases.reduce((a, p) => a + p.seconds, 0);
 const patternText = (phases) => phases.map((p) => fmtNum(p.seconds)).join(' · ');
-const patternSpoken = (phases) => phases.map((p) => `${PHASE_LABEL[p.type].toLowerCase()} ${fmtNum(p.seconds)} segundos`).join(', ');
+const phaseLabel = (p) => p.label || PHASE_LABEL[p.type];
+const patternSpoken = (phases) => phases.map((p) => `${phaseLabel(p).toLowerCase()} ${fmtNum(p.seconds)} segundos`).join(', ');
 const isHoldType = (type) => type === 'hold' || type === 'holdEmpty';
 const hasHolds = (tech) => tech.variants.some((v) => v.phases.some((p) => isHoldType(p.type)));
 const byId = (id) => TECHNIQUES.find((t) => t.id === id) || null;
@@ -1424,6 +1394,11 @@ const ICON = {
   art_box: '<svg class="art" viewBox="0 0 240 160" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><circle cx="120" cy="70" r="58" fill="var(--ph-inhale-soft)"/><path d="M0 124C60 118 180 130 240 122V160H0Z" fill="var(--accent-soft)"/><path d="M0 148C60 140 150 152 240 144V160H0Z" fill="var(--surface-3)"/><rect x="76" y="26" width="88" height="88" rx="6" fill="none" stroke="var(--ph-inhale)" stroke-width="2.5"/><g stroke-width="2"><ellipse cx="120" cy="104" rx="28" ry="9" fill="var(--ph-empty-soft)" stroke="var(--ph-empty)"/><ellipse cx="120" cy="87" rx="20" ry="8" fill="var(--ph-exhale-soft)" stroke="var(--ph-exhale)"/><ellipse cx="121" cy="72" rx="12" ry="6.5" fill="var(--ph-hold-soft)" stroke="var(--ph-hold)"/></g><circle cx="76" cy="26" r="5.5" fill="var(--ph-inhale)" stroke="var(--surface-2)" stroke-width="3"/></svg>',
   art_coherent: '<svg class="art" viewBox="0 0 240 160" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><circle cx="120" cy="68" r="54" fill="var(--ph-exhale-soft)"/><path d="M0 128C60 120 180 132 240 124V160H0Z" fill="var(--accent-soft)"/><path d="M0 148C60 140 150 152 240 144V160H0Z" fill="var(--surface-3)"/><path d="M0 70Q15 46 30 70T60 70T90 70T120 70T150 70T180 70T210 70T240 70" fill="none" stroke="var(--ph-inhale)" stroke-width="2.5" stroke-linecap="round"/><path d="M120 92C96 76 90 58 101 49C109 43 117 46 120 53C123 46 131 43 139 49C150 58 144 76 120 92Z" fill="var(--surface-2)" stroke="var(--ph-exhale)" stroke-width="2.5" stroke-linejoin="round"/><path d="M104 66h8l4-7 5 14 4-7h11" fill="none" stroke="var(--ph-exhale)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
   art_diaphragmatic: '<svg class="art" viewBox="0 0 240 160" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><path d="M56 106A64 64 0 0 1 184 106Z" fill="var(--ph-inhale-soft)"/><path d="M56 104A64 64 0 0 1 184 104" fill="none" stroke="var(--ph-inhale)" stroke-width="2" stroke-linecap="round"/><path d="M76 104A44 44 0 0 1 164 104" fill="none" stroke="var(--ph-inhale)" stroke-width="1.75" stroke-dasharray="1.5 6" stroke-linecap="round"/><path d="M0 106C60 100 180 110 240 104V160H0Z" fill="var(--accent-soft)"/><path d="M0 148C60 140 150 152 240 144V160H0Z" fill="var(--surface-3)"/><path d="M120 106C118 120 110 128 100 140M120 106C122 122 132 130 142 142M120 106V146" fill="none" stroke="var(--ph-empty)" stroke-width="2" stroke-linecap="round"/><path d="M120 106C120 92 120 78 122 62" fill="none" stroke="var(--ph-exhale)" stroke-width="2.5" stroke-linecap="round"/><g fill="var(--ph-exhale-soft)" stroke="var(--ph-exhale)" stroke-width="2" stroke-linejoin="round"><path d="M121 88C104 88 92 76 90 62C106 62 118 72 121 88Z"/><path d="M122 70C136 68 150 56 152 42C136 42 124 54 122 70Z"/></g></svg>',
+  art_sigh: '<svg class="art" viewBox="0 0 240 160" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><circle cx="66" cy="58" r="40" fill="var(--ph-inhale-soft)"/><path d="M0 128C60 120 180 132 240 124V160H0Z" fill="var(--accent-soft)"/><path d="M0 148C60 140 150 152 240 144V160H0Z" fill="var(--surface-3)"/><g fill="none" stroke-width="2.5" stroke-linecap="round"><path d="M4 112C26 112 32 66 54 66" stroke="var(--ph-inhale)"/><path d="M54 66C64 66 66 46 76 46" stroke="var(--ph-inhale)"/><path d="M76 46C142 46 172 112 236 112" stroke="var(--ph-exhale)"/></g><g fill="var(--ph-inhale)"><circle cx="54" cy="66" r="3.5"/><circle cx="76" cy="46" r="3.5"/></g></svg>',
+  art_pursed: '<svg class="art" viewBox="0 0 240 160" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><circle cx="172" cy="58" r="40" fill="var(--warm-soft)"/><path d="M0 128C60 120 180 132 240 124V160H0Z" fill="var(--accent-soft)"/><path d="M0 148C60 140 150 152 240 144V160H0Z" fill="var(--surface-3)"/><rect x="162" y="74" width="20" height="50" rx="3" fill="var(--surface-2)" stroke="var(--ph-empty)" stroke-width="2"/><path d="M172 74v-7" stroke="var(--ph-empty)" stroke-width="2" stroke-linecap="round"/><path d="M172 67C163 62 163 50 171 42C172 52 183 54 179 62C177 66 174 68 172 67Z" fill="var(--warm)"/><g fill="none" stroke="var(--ph-exhale)" stroke-width="2.5" stroke-linecap="round"><path d="M28 52H124"/><path d="M40 64H136" stroke-dasharray="2 9"/><path d="M28 76H120"/></g></svg>',
+  art_nadi: '<svg class="art" viewBox="0 0 240 160" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><circle cx="120" cy="64" r="52" fill="var(--ph-hold-soft)"/><path d="M0 128C60 120 180 132 240 124V160H0Z" fill="var(--accent-soft)"/><path d="M0 148C60 140 150 152 240 144V160H0Z" fill="var(--surface-3)"/><g fill="none" stroke-width="2.5" stroke-linecap="round"><path d="M98 120C98 98 142 90 142 66S98 34 98 12" stroke="var(--ph-inhale)"/><path d="M142 120C142 98 98 90 98 66S142 34 142 12" stroke="var(--ph-exhale)"/></g><g fill="var(--ph-hold)"><circle cx="120" cy="93" r="4"/><circle cx="120" cy="39" r="4"/></g></svg>',
+  art_bhramari: '<svg class="art" viewBox="0 0 240 160" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><circle cx="84" cy="68" r="34" fill="var(--warm-soft)"/><path d="M0 128C60 120 180 132 240 124V160H0Z" fill="var(--accent-soft)"/><path d="M0 148C60 140 150 152 240 144V160H0Z" fill="var(--surface-3)"/><circle cx="84" cy="68" r="10" fill="var(--warm)"/><g fill="none" stroke="var(--ph-exhale)" stroke-width="2.5" stroke-linecap="round"><path d="M110 50A26 26 0 0 1 110 86"/><path d="M126 38A44 44 0 0 1 126 98" opacity=".7"/><path d="M142 26A62 62 0 0 1 142 110" opacity=".45"/><path d="M160 68q6-9 12 0t12 0 12 0 12 0 12 0"/></g></svg>',
+  art_ujjayi: '<svg class="art" viewBox="0 0 240 160" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><circle cx="178" cy="46" r="30" fill="var(--ph-inhale-soft)"/><path d="M0 98C20 98 26 80 44 80S62 98 80 98 102 76 122 76 144 98 162 98 184 80 202 80 222 98 240 98V160H0Z" fill="var(--ph-inhale-soft)"/><path d="M0 132C60 124 180 136 240 128V160H0Z" fill="var(--accent-soft)"/><path d="M0 148C60 140 150 152 240 144V160H0Z" fill="var(--surface-3)"/><path d="M0 98C20 98 26 80 44 80S62 98 80 98 102 76 122 76 144 98 162 98 184 80 202 80 222 98 240 98" fill="none" stroke="var(--ph-inhale)" stroke-width="2.5" stroke-linecap="round"/><path d="M30 116C44 116 48 106 60 106S76 116 90 116M150 118C164 118 168 108 180 108S196 118 210 118" fill="none" stroke="var(--ph-inhale)" stroke-width="2" stroke-linecap="round" opacity=".6"/></svg>',
 };
 
 /* Onda que dibuja el perfil de un ciclo (sube al inhalar, plano al retener, baja al exhalar). */
@@ -1439,11 +1414,10 @@ function waveSVG(phases, { cycles = 1, w = 240, h = 60 } = {}) {
     for (const p of phases) {
       const x1 = x + p.seconds * k;
       const mid = (x + x1) / 2;
-      let d;
-      if (p.type === 'inhale') d = `M${x} ${bot}C${mid} ${bot} ${mid} ${top} ${x1} ${top}`;
-      else if (p.type === 'exhale') d = `M${x} ${top}C${mid} ${top} ${mid} ${bot} ${x1} ${bot}`;
-      else if (p.type === 'hold') d = `M${x} ${top}L${x1} ${top}`;
-      else d = `M${x} ${bot}L${x1} ${bot}`;
+      const y = (lv) => bot - (bot - top) * lv;
+      const y0 = y(p.from ?? (p.type === 'inhale' || p.type === 'holdEmpty' ? 0 : 1));
+      const y1 = y(p.to ?? (p.type === 'inhale' ? 1 : p.type === 'exhale' ? 0 : (p.type === 'hold' ? 1 : 0)));
+      const d = y0 === y1 ? `M${x} ${y0}L${x1} ${y1}` : `M${x} ${y0}C${mid} ${y0} ${mid} ${y1} ${x1} ${y1}`;
       paths.push(`<path class="w-${p.type}" d="${d}"/>`);
       x = x1;
     }
@@ -1601,13 +1575,14 @@ function planSession(tech, cfg) {
    ========================================================= */
 const STORE_KEY = 'respira:v1';
 const MAX_SESSIONS = 5000;
-const DEFAULT_PREFS = Object.freeze({ tones: true, voice: true, volume: 0.7, voiceRate: 1, voiceURI: '', voiceCycles: 0, theme: 'auto', motion: 'auto', lastTechnique: null });
+const DEFAULT_PREFS = Object.freeze({ tones: true, voice: true, volume: 0.7, voiceRate: 1, voiceURI: '', voiceCycles: 0, theme: 'auto', motion: 'auto', haptics: false, lastTechnique: null, weeklyGoal: 5, reminderTime: '21:00', reminderDays: 'daily' });
 
 function sanitizePrefs(p) {
   const d = { ...DEFAULT_PREFS, configs: {} };
   if (!p || typeof p !== 'object') return d;
   if (typeof p.tones === 'boolean') d.tones = p.tones;
   if (typeof p.voice === 'boolean') d.voice = p.voice;
+  if (typeof p.haptics === 'boolean') d.haptics = p.haptics;
   if (Number.isFinite(p.volume)) d.volume = clamp(p.volume, 0, 1);
   if (Number.isFinite(p.voiceRate)) d.voiceRate = clamp(p.voiceRate, 0.6, 1.4);
   if (typeof p.voiceURI === 'string') d.voiceURI = p.voiceURI;
@@ -1615,6 +1590,9 @@ function sanitizePrefs(p) {
   if (['auto', 'light', 'dark'].includes(p.theme)) d.theme = p.theme;
   if (['auto', 'reduce'].includes(p.motion)) d.motion = p.motion;
   if (typeof p.lastTechnique === 'string' && byId(p.lastTechnique)) d.lastTechnique = p.lastTechnique;
+  if (Number.isInteger(p.weeklyGoal) && p.weeklyGoal >= 1 && p.weeklyGoal <= 7) d.weeklyGoal = p.weeklyGoal;
+  if (typeof p.reminderTime === 'string' && /^([01]\d|2[0-3]):[0-5]\d$/.test(p.reminderTime)) d.reminderTime = p.reminderTime;
+  if (['daily', 'weekdays'].includes(p.reminderDays)) d.reminderDays = p.reminderDays;
   if (p.configs && typeof p.configs === 'object') {
     for (const [k, v] of Object.entries(p.configs)) {
       if (byId(k) && v && typeof v === 'object') d.configs[k] = { mode: v.mode, cycles: v.cycles, minutes: v.minutes, variant: v.variant };
@@ -1854,6 +1832,33 @@ const Voice = {
 function unlockMedia() { Sound.ensure(); Voice.prime(); }
 
 /* =========================================================
+   5b. VIBRACIÓN (Vibration API)
+   Un patrón distinto al empezar cada fase, para practicar sin
+   mirar la pantalla. Solo Android: iOS no ofrece esta API. Se
+   ofrece únicamente en pantallas táctiles, porque en escritorio
+   la API existe pero no hay motor que vibre.
+   ========================================================= */
+const HAPTIC_PATTERNS = Object.freeze({
+  inhale: [40, 70, 80, 70, 160], // pulsos que se alargan
+  exhale: [160, 70, 80, 70, 40], // pulsos que se acortan
+  hold: [70, 110, 70], // dos toques
+  holdEmpty: [70], // un toque
+  tick: [20], // cuenta regresiva
+  done: [60, 120, 60, 120, 240], // sesión completada
+});
+
+const Haptics = {
+  supported: typeof navigator.vibrate === 'function' && window.matchMedia('(pointer: coarse)').matches,
+  play(name, { force = false } = {}) {
+    if (!this.supported || (!prefs().haptics && !force)) return;
+    try { navigator.vibrate(HAPTIC_PATTERNS[name]); } catch (e) { /* la vibración nunca debe interrumpir la práctica */ }
+  },
+  cancel() {
+    if (this.supported) { try { navigator.vibrate(0); } catch (e) { /* sin efecto */ } }
+  },
+};
+
+/* =========================================================
    6. WAKE LOCK (pantalla encendida durante la práctica)
    ========================================================= */
 const Wake = {
@@ -1950,8 +1955,9 @@ function applyMotion() {
    8. INICIO: asistente, filtros y tarjetas
    ========================================================= */
 const HomeView = {
-  filters: Object.fromEntries(TAXONOMY.map((g) => [g.key, new Set()])),
+  filters: {},
   init() {
+    this.filters = Object.fromEntries(TAXONOMY.map((g) => [g.key, new Set()]));
     $('#needs').innerHTML = NEEDS.map((n) => `
       <button type="button" class="need-btn" data-need="${esc(n.id)}" aria-pressed="false">
         <span class="need-icon" aria-hidden="true">${ICON['need_' + n.id] || ''}</span><span class="need-text"><strong>${esc(n.label)}</strong><span>${esc(n.hint)}</span></span>
@@ -2018,6 +2024,35 @@ const HomeView = {
     const plan = planSession(t, getConfig(t.id));
     const detail = [variantName(t, plan.variant), plural(plan.cycles, 'ciclo', 'ciclos'), fmtDuration(plan.totalMs / 1000)].filter(Boolean).join(' · ');
     el.innerHTML = `<a class="btn btn-secondary" href="#/practica/${esc(t.id)}">${ICON.play}<span>Repetir: ${esc(t.name)} <span class="muted">(${esc(detail)})</span></span></a>`;
+  },
+  renderStreak() {
+    const el = $('#streakCard');
+    const sessions = Store.data.sessions;
+    el.hidden = !sessions.length;
+    if (!sessions.length) return;
+    const now = new Date();
+    const st = computeStats(sessions, now);
+    const goal = prefs().weeklyGoal;
+    const ws = startOfWeek(now);
+    const today = (now.getDay() + 6) % 7;
+    if (!this.dayFmt) {
+      this.dayFmt = new Intl.DateTimeFormat(LOCALE, { weekday: 'narrow' });
+      this.dayLongFmt = new Intl.DateTimeFormat(LOCALE, { weekday: 'long' });
+    }
+    const dots = st.weekDays.map((done, i) => {
+      const d = new Date(ws.getFullYear(), ws.getMonth(), ws.getDate() + i);
+      const state = done ? 'con práctica' : (i > today ? 'aún no llega' : 'sin práctica');
+      return `<li class="wd${done ? ' done' : ''}${i === today ? ' today' : ''}"><span aria-hidden="true">${esc(this.dayFmt.format(d).toUpperCase())}</span><span class="sr-only">${esc(this.dayLongFmt.format(d))}${i === today ? ' (hoy)' : ''}: ${state}</span></li>`;
+    }).join('');
+    const main = st.streak
+      ? `<strong>${st.streak}</strong><span>${st.streak === 1 ? 'día de racha' : 'días seguidos'}</span>`
+      : '<span>Practica hoy para empezar una racha</span>';
+    const hint = st.streak && !st.practicedToday ? ' Practica hoy para mantenerla.' : '';
+    const met = st.weekDayCount >= goal ? ' ¡Meta cumplida!' : '';
+    el.innerHTML = `
+      <p class="streak-main">${main}</p>
+      <ol class="week-dots" aria-label="Esta semana">${dots}</ol>
+      <p class="streak-meta">${st.weekDayCount} de ${plural(goal, 'día', 'días')} esta semana.${met}${hint} Mejor racha: ${plural(st.bestStreak, 'día', 'días')}. <a href="#/ajustes">Meta y recordatorio</a></p>`;
   },
   matches(t) {
     return TAXONOMY.every((g) => {
@@ -2127,15 +2162,28 @@ const DetailView = {
           <section class="card config" aria-labelledby="d-cfg">${this.configHTML()}</section>
         </div>
         <section class="card" aria-labelledby="d-why">
-          <h2 id="d-why">Por qué funciona</h2>
+          <h2 id="d-why">Cómo actúa</h2>
           <p class="focus-line"><strong>Foco fisiológico:</strong> ${esc(tech.focusText)}</p>
           <p>${esc(tech.why)}</p>
           <h3>Cuándo usarla</h3>
           <ul class="inline-list">${tech.moments.map((m) => `<li>${esc(m)}</li>`).join('')}</ul>
-          <h3>Beneficios</h3>
+          <h3>Para qué se usa</h3>
           <ul class="inline-list">${tech.benefits.map((m) => `<li>${esc(m)}</li>`).join('')}</ul>
-          <h3>Dosis recomendada</h3>
+          <h3>Cuánto practicar</h3>
           <p>${esc(tech.dose)}</p>
+        </section>
+        <section class="card" aria-labelledby="d-evidence">
+          <h2 id="d-evidence">Qué dice la evidencia</h2>
+          <p>${esc(tech.evidence)}</p>
+          <h3>Referencias</h3>
+          <ol class="refs" role="list">${tech.refs.map((r) => `
+            <li class="ref">
+              <span class="ref-type">${esc(r.typeLabel)}</span>
+              <a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.title)}</a>
+              <span class="fine">${esc([r.authors, r.source, r.year].filter(Boolean).join(' · '))}</span>
+            </li>`).join('')}
+          </ol>
+          ${tech.refs.some((r) => r.type === 'outreach') ? '<p class="fine refs-note">Los artículos de divulgación explican la técnica, pero no son evidencia científica.</p>' : ''}
         </section>
       </div>`;
     $('#view-detail').setAttribute('aria-labelledby', 'detail-title');
@@ -2234,7 +2282,7 @@ const DetailView = {
       <ol class="phase-list">
         ${plan.phases.map((p) => `
           <li class="phase-item" data-type="${p.type}">
-            <span class="pi-label">${PHASE_LABEL[p.type]}</span>
+            <span class="pi-label">${esc(phaseLabel(p))}</span>
             <span class="pi-sec">${fmtNum(p.seconds)} s</span>
             <span class="pi-cue">${esc(p.cue)}</span>
           </li>`).join('')}
@@ -2352,6 +2400,7 @@ const Practice = {
     this.stopLoop();
     Sound.silence();
     Voice.cancel();
+    Haptics.cancel();
     Wake.release();
   },
 
@@ -2372,7 +2421,7 @@ const Practice = {
     if (el.stage.dataset.visual === 'box') {
       $$('.box-label', el.stage).forEach((t) => {
         const p = plan.phases[+t.dataset.side];
-        t.textContent = p ? `${PHASE_LABEL[p.type]} ${fmtNum(p.seconds)} s` : '';
+        t.textContent = p ? `${phaseLabel(p)} ${fmtNum(p.seconds)} s` : '';
       });
     }
     this.root.dataset.phase = '';
@@ -2437,7 +2486,7 @@ const Practice = {
 
   onEvent(ev) {
     if (ev.type === 'state') this.applyState(ev.to, ev.from);
-    else if (ev.type === 'count') { if (prefs().tones) Sound.tick(); }
+    else if (ev.type === 'count') { if (prefs().tones) Sound.tick(); Haptics.play('tick'); }
     else if (ev.type === 'phase') this.onPhase(ev);
     else if (ev.type === 'finish') this.onFinish();
   },
@@ -2458,6 +2507,7 @@ const Practice = {
 
     if (live) { this.loop(); Wake.request(); } else { this.stopLoop(); Wake.release(); }
     if (to === 'paused' || to === 'stopped' || to === 'finished') { Sound.silence(); Voice.cancel(); }
+    if (to === 'paused' || to === 'stopped') Haptics.cancel();
 
     if (to === 'countdown' && from === 'idle') {
       el.phaseName.textContent = 'Prepárate';
@@ -2472,8 +2522,9 @@ const Practice = {
     } else if (from === 'paused' && live) {
       const snap = e.snapshot();
       if (to === 'running' && snap.phase) {
-        this.announce(`Continúa: ${PHASE_LABEL[snap.phase.type]}.`);
-        Voice.speak(PHASE_LABEL[snap.phase.type]);
+        this.announce(`Continúa: ${phaseLabel(snap.phase)}.`);
+        Voice.speak(phaseLabel(snap.phase));
+        Haptics.play(snap.phase.type);
       } else {
         this.announce('Continúa la preparación.');
       }
@@ -2486,13 +2537,14 @@ const Practice = {
   onPhase(ev) {
     const ph = ev.phase;
     this.root.dataset.phase = ph.type;
-    this.el.phaseName.textContent = PHASE_LABEL[ph.type];
+    this.el.phaseName.textContent = phaseLabel(ph);
     this.el.phaseCue.textContent = ph.cue;
     this.highlightSide(ev.index);
-    this.announce(`${PHASE_LABEL[ph.type]}, ${fmtNum(ph.seconds)} segundos.`);
+    this.announce(`${phaseLabel(ph)}, ${fmtNum(ph.seconds)} segundos.`);
     const p = prefs();
     if (p.tones) Sound.phase(ph.type, ph.seconds);
-    if (p.voice && (p.voiceCycles === 0 || ev.cycle < p.voiceCycles)) Voice.speak(PHASE_LABEL[ph.type]);
+    if (p.voice && (p.voiceCycles === 0 || ev.cycle < p.voiceCycles)) Voice.speak(phaseLabel(ph));
+    Haptics.play(ph.type);
   },
 
   onFinish() {
@@ -2500,6 +2552,7 @@ const Practice = {
     const saved = this.saveSession(true, snap);
     if (prefs().tones) Sound.chime();
     Voice.speak('Sesión completada');
+    Haptics.play('done');
     this.showSummary(true, snap, saved);
     this.announce(`Sesión completada: ${plural(snap.cyclesCompleted, 'ciclo', 'ciclos')} en ${fmtDuration(snap.sessionMs / 1000)}.`);
   },
@@ -2651,10 +2704,13 @@ const Practice = {
     if (pos) {
       const p = pos.elapsed / ph.ms;
       const pulse = 0.018 * Math.sin(Math.PI * clamp(p, 0, 1)) * (0.5 - 0.5 * Math.cos((2 * Math.PI * pos.elapsed) / 1600));
-      if (ph.type === 'inhale') { s = CIRCLE_MIN + (CIRCLE_MAX - CIRCLE_MIN) * ease(p); o = 0.35 + 0.65 * p; }
-      else if (ph.type === 'exhale') { s = CIRCLE_MAX - (CIRCLE_MAX - CIRCLE_MIN) * ease(p); o = 1 - 0.65 * p; }
-      else if (ph.type === 'hold') { s = CIRCLE_MAX - pulse; o = 1; }
-      else { s = CIRCLE_MIN + pulse; o = 0.35; }
+      const from = ph.from ?? (ph.type === 'inhale' || ph.type === 'holdEmpty' ? 0 : 1);
+      const to = ph.to ?? (ph.type === 'inhale' ? 1 : ph.type === 'exhale' ? 0 : from);
+      const lv = from + (to - from) * ease(p);
+      // Las retenciones «respiran» levemente hacia adentro (llenos) o hacia afuera (vacíos).
+      const sway = ph.type === 'hold' ? -pulse : ph.type === 'holdEmpty' ? pulse : 0;
+      s = CIRCLE_MIN + (CIRCLE_MAX - CIRCLE_MIN) * lv + sway;
+      o = 0.35 + 0.65 * (from + (to - from) * clamp(p, 0, 1));
     }
     const c = this.el.breathCircle;
     if (reduce) {
@@ -2696,13 +2752,110 @@ function computeStats(sessions, now = new Date()) {
   const d = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   if (!days.has(dayKey(d))) d.setDate(d.getDate() - 1);
   while (days.has(dayKey(d))) { streak++; d.setDate(d.getDate() - 1); }
+  // Mejor racha: días consecutivos más largos. Mediodía local para no tropezar con el cambio de horario.
+  let bestStreak = 0;
+  let run = 0;
+  let prev = null;
+  for (const k of [...days].sort()) {
+    const cur = new Date(`${k}T12:00:00`);
+    run = prev && Math.round((cur - prev) / 86400000) === 1 ? run + 1 : 1;
+    bestStreak = Math.max(bestStreak, run);
+    prev = cur;
+  }
+  const weekDays = Array.from({ length: 7 }, (_, i) => days.has(dayKey(new Date(ws.getFullYear(), ws.getMonth(), ws.getDate() + i))));
+  const practicedToday = days.has(dayKey(now));
   let top = null;
   for (const [id, e] of per) if (!top || e.count > top.count || (e.count === top.count && e.sec > top.sec)) top = { id, ...e };
   const recent = [...sessions].sort((a, b) => b.startedAt.localeCompare(a.startedAt)).slice(0, 20);
-  return { totalSec, per, weekCount, streak, top, recent };
+  return { totalSec, per, weekCount, streak, bestStreak, weekDays, weekDayCount: weekDays.filter(Boolean).length, practicedToday, top, recent };
 }
 
 const techName = (id) => byId(id)?.name ?? `Técnica «${id}»`;
+
+/* Recordatorio: Respira no tiene servidor y la web no puede programar
+   notificaciones, así que genera un evento repetitivo para el calendario
+   de la persona (.ics o enlace de Google Calendar). Hora local «flotante». */
+const REMINDER_DAYS = Object.freeze({
+  daily: { rrule: 'FREQ=DAILY', ok: () => true },
+  weekdays: { rrule: 'FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR', ok: (d) => d.getDay() >= 1 && d.getDay() <= 5 },
+});
+const REMINDER_MINUTES = 5;
+const REMINDER_TITLE = 'Respira: un momento para respirar';
+const appURL = () => new URL('./', location.href).href;
+const icsLocal = (d) => `${d.getFullYear()}${pad2(d.getMonth() + 1)}${pad2(d.getDate())}T${pad2(d.getHours())}${pad2(d.getMinutes())}00`;
+const icsUTC = (d) => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+const icsText = (s) => String(s).replace(/[\\;,]/g, (c) => `\\${c}`).replace(/\r?\n/g, '\\n');
+
+/* Primera ocurrencia futura que cumple la regla (RFC 5545: DTSTART debe ser una de ellas). */
+function nextReminderStart(time, days, now = new Date()) {
+  const [h, m] = time.split(':').map(Number);
+  const d = new Date(now.getFullYear(), now.getMonth(), now.getDate(), h, m);
+  if (d <= now) d.setDate(d.getDate() + 1);
+  while (!REMINDER_DAYS[days].ok(d)) d.setDate(d.getDate() + 1);
+  return d;
+}
+
+/* Pliega líneas a 75 octetos, como pide el formato iCalendar. */
+function foldICS(line) {
+  const enc = new TextEncoder();
+  const parts = [];
+  let cur = '';
+  let bytes = 0;
+  for (const ch of line) {
+    const b = enc.encode(ch).length;
+    if (bytes + b > (parts.length ? 74 : 75)) { parts.push(cur); cur = ''; bytes = 0; }
+    cur += ch;
+    bytes += b;
+  }
+  parts.push(cur);
+  return parts.join('\r\n ');
+}
+
+function buildICS({ time, days, now = new Date(), url = appURL(), id = uid() }) {
+  const start = nextReminderStart(time, days, now);
+  const lines = [
+    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Respira//Recordatorio//ES', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
+    'BEGIN:VEVENT',
+    `UID:${id}@respira`,
+    `DTSTAMP:${icsUTC(now)}`,
+    `DTSTART:${icsLocal(start)}`,
+    `DURATION:PT${REMINDER_MINUTES}M`,
+    `RRULE:${REMINDER_DAYS[days].rrule}`,
+    `SUMMARY:${icsText(REMINDER_TITLE)}`,
+    `DESCRIPTION:${icsText(`Abre Respira y elige una técnica: ${url}`)}`,
+    `URL:${url}`,
+    'BEGIN:VALARM', 'ACTION:DISPLAY', `DESCRIPTION:${icsText(REMINDER_TITLE)}`, 'TRIGGER:PT0M', 'END:VALARM',
+    'END:VEVENT', 'END:VCALENDAR',
+  ];
+  return `${lines.map(foldICS).join('\r\n')}\r\n`;
+}
+
+function googleCalendarURL({ time, days, now = new Date(), url = appURL() }) {
+  const start = nextReminderStart(time, days, now);
+  const end = new Date(start.getTime() + REMINDER_MINUTES * 60000);
+  const q = new URLSearchParams({
+    action: 'TEMPLATE',
+    text: REMINDER_TITLE,
+    details: `Abre Respira y elige una técnica: ${url}`,
+    dates: `${icsLocal(start)}/${icsLocal(end)}`,
+    recur: `RRULE:${REMINDER_DAYS[days].rrule}`,
+  });
+  try { q.set('ctz', Intl.DateTimeFormat().resolvedOptions().timeZone); } catch (e) { /* sin zona: Google usa la del calendario */ }
+  return `https://calendar.google.com/calendar/render?${q}`;
+}
+
+function downloadICS() {
+  const p = prefs();
+  const blob = new Blob([buildICS({ time: p.reminderTime, days: p.reminderDays })], { type: 'text/calendar;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'respira-recordatorio.ics';
+  document.body.append(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 10000);
+  toast('Abre el archivo descargado para agregar el recordatorio a tu calendario.');
+}
 
 const HistoryView = {
   dateFmt: null,
@@ -2723,7 +2876,7 @@ const HistoryView = {
     const tiles = [
       [fmtMinutes(st.totalSec), 'minutos en total', false],
       [String(st.weekCount), st.weekCount === 1 ? 'sesión esta semana' : 'sesiones esta semana', false],
-      [String(st.streak), st.streak === 1 ? 'día de racha' : 'días de racha consecutivos', false],
+      [String(st.streak), `${st.streak === 1 ? 'día de racha' : 'días de racha consecutivos'} · mejor: ${st.bestStreak}`, false],
       [st.top ? techName(st.top.id) : '—', 'técnica más usada', !!st.top],
     ];
     $('#statsGrid').innerHTML = tiles.map(([v, l, isText]) => `<li class="stat"><p class="stat-value${isText ? ' is-text' : ''}">${esc(v)}</p><p class="stat-label">${esc(l)}</p></li>`).join('');
@@ -2752,7 +2905,7 @@ const HistoryView = {
 
     $('#historyLede').textContent = Store.available
       ? 'Cada sesión de 30 segundos o más queda registrada solo en este navegador.'
-      : 'Este navegador no permite guardar datos locales al abrir el archivo directamente: el historial se perderá al cerrar la página.';
+      : 'Este navegador no permite guardar datos locales: el historial se perderá al cerrar la página.';
     $('#btnExport').disabled = !sessions.length;
     $('#btnClear').disabled = !sessions.length;
   },
@@ -2839,8 +2992,22 @@ const SettingsView = {
       setTimeout(() => Sound.phase('exhale', 3), 3000);
     });
     $('#testVoice').addEventListener('click', () => Voice.speak('Inhala. Retén. Exhala.', { force: true }));
+    $('#hapticCard').hidden = !Haptics.supported;
+    $('#setHaptics').addEventListener('change', () => { p.haptics = $('#setHaptics').checked; if (!p.haptics) Haptics.cancel(); Store.save(); });
+    $('#testHaptics').addEventListener('click', () => {
+      Haptics.play('inhale', { force: true });
+      setTimeout(() => Haptics.play('hold', { force: true }), 1500);
+      setTimeout(() => Haptics.play('exhale', { force: true }), 3000);
+    });
     $$('input[name="theme"]').forEach((r) => r.addEventListener('change', () => { p.theme = r.value; applyTheme(); Store.save(); }));
     $$('input[name="motion"]').forEach((r) => r.addEventListener('change', () => { p.motion = r.value; applyMotion(); Store.save(); }));
+    $('#setGoal').addEventListener('change', () => { p.weeklyGoal = clamp(parseInt($('#setGoal').value, 10) || 5, 1, 7); Store.save(); });
+    $('#setRemTime').addEventListener('change', () => {
+      const v = $('#setRemTime').value;
+      if (/^([01]\d|2[0-3]):[0-5]\d$/.test(v)) { p.reminderTime = v; Store.save(); this.syncReminder(); }
+    });
+    $('#setRemDays').addEventListener('change', () => { p.reminderDays = $('#setRemDays').value; Store.save(); this.syncReminder(); });
+    $('#btnIcs').addEventListener('click', downloadICS);
 
     if (!Voice.supported) {
       $('#voiceControls').hidden = true;
@@ -2858,13 +3025,23 @@ const SettingsView = {
     const p = prefs();
     $('#setTones').checked = p.tones;
     $('#setVoice').checked = p.voice;
+    $('#setHaptics').checked = p.haptics;
     $('#setVolume').value = String(Math.round(p.volume * 100));
     $('#setRate').value = String(p.voiceRate);
     $('#setVoiceCycles').value = String(p.voiceCycles);
     if (!$('#setVoiceCycles').value) $('#setVoiceCycles').value = '0';
     $$('input[name="theme"]').forEach((r) => { r.checked = r.value === p.theme; });
     $$('input[name="motion"]').forEach((r) => { r.checked = r.value === p.motion; });
+    $('#setGoal').value = String(p.weeklyGoal);
+    $('#setRemTime').value = p.reminderTime;
+    $('#setRemDays').value = p.reminderDays;
+    this.syncReminder();
     this.outputs();
+  },
+  /* El enlace de Google Calendar se arma con la hora y los días elegidos. */
+  syncReminder() {
+    const p = prefs();
+    $('#lnkGcal').href = googleCalendarURL({ time: p.reminderTime, days: p.reminderDays });
   },
   outputs() {
     const p = prefs();
@@ -2933,6 +3110,7 @@ function route(initial = false) {
   } else {
     Practice.autostart = false;
     HomeView.renderLast();
+    HomeView.renderStreak();
     showView('home', !initial, 'Respira · Respiración consciente guiada');
   }
 }
@@ -2940,6 +3118,26 @@ function route(initial = false) {
 /* =========================================================
    14. INICIO DE LA APP
    ========================================================= */
+async function loadContent(lang = CONTENT_LANG) {
+  const get = async (url) => {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`${url}: HTTP ${res.status}`);
+    return res.json();
+  };
+  const [data, text] = await Promise.all([get('data/techniques.json'), get(`data/locales/${lang}.json`)]);
+  const c = buildContent(data, text);
+  Object.freeze(Object.assign(PHASE_LABEL, c.phaseLabels));
+  TECHNIQUES.push(...c.techniques);
+  TAXONOMY.push(...c.taxonomy);
+  NEEDS.push(...c.needs);
+}
+
+function showLoadError(err) {
+  console.error('Respira: no se pudo cargar el contenido.', err);
+  $('#view-home').hidden = true;
+  $('#loadError').hidden = false;
+}
+
 function init() {
   Store.init();
   applyTheme();
@@ -3053,6 +3251,13 @@ window.__respiraSelfTest = async function respiraSelfTest(opts = {}) {
     'coherent/5.5-5.5': [11, 'inhale,exhale'],
     'coherent/4-6': [10, 'inhale,exhale'],
     'diaphragmatic/default': [12, 'inhale,hold,exhale'],
+    'sigh/default': [9, 'inhale,inhale,exhale'],
+    'pursed/2-4': [6, 'inhale,exhale'],
+    'pursed/3-6': [9, 'inhale,exhale'],
+    'nadi/4-4': [16, 'inhale,exhale,inhale,exhale'],
+    'nadi/4-6': [20, 'inhale,exhale,inhale,exhale'],
+    'bhramari/default': [12, 'inhale,exhale'],
+    'ujjayi/default': [10, 'inhale,exhale'],
   };
   for (const [key, [sec, seq]] of Object.entries(EXPECT)) {
     const [tid, vid] = key.split('/');
@@ -3064,7 +3269,15 @@ window.__respiraSelfTest = async function respiraSelfTest(opts = {}) {
   for (const t of TECHNIQUES) {
     const okTypes = t.variants.every((v) => v.phases.every((p) => PHASE_LABEL[p.type] && p.seconds > 0 && typeof p.cue === 'string'));
     add(`Estructura ${t.id}`, okTypes && !!t.defaults && !!t.limits, 'tipos de fase, segundos y cues válidos');
+    // Niveles continuos: cada fase parte donde terminó la anterior (también al cerrar el ciclo).
+    const okLevels = t.variants.every((v) => v.phases.every((p, i) => {
+      const prev = v.phases[(i + v.phases.length - 1) % v.phases.length];
+      return p.from === prev.to && (p.type !== 'inhale' || p.to > p.from) && (p.type !== 'exhale' || p.to < p.from);
+    }));
+    add(`Niveles ${t.id}`, okLevels, t.variants.map((v) => v.phases.map((p) => `${p.from}→${p.to}`).join(' ')).join(' / '));
   }
+  const sighLv = byId('sigh')?.variants[0].phases.map((p) => `${p.from}→${p.to}`).join(' ');
+  add('Suspiro cíclico: doble inhalación', sighLv === '0→0.7 0.7→1 1→0', sighLv || 'técnica no encontrada');
 
   // 2) Planes de sesión (minutos → ciclos completos, límites).
   const planOf = (tid, cfg) => planSession(byId(tid), { ...byId(tid).defaults, ...cfg });
@@ -3154,6 +3367,43 @@ window.__respiraSelfTest = async function respiraSelfTest(opts = {}) {
     add(`Reloj real ×${speed} (4-7-8 principiante)`, maxErr < TOL && marks.length === phases.length * 3 + 1, `error máx. ${maxErr.toFixed(1)} ms`);
   }
 
+  // 6) Vibración: un patrón por fase, que termina vibrando y dura menos que la fase más corta.
+  const minPhaseMs = Math.min(...TECHNIQUES.flatMap((t) => t.variants.flatMap((v) => v.phases.map((p) => p.seconds * 1000))));
+  const hapticOk = PHASE_TYPES.every((type) => {
+    const pat = HAPTIC_PATTERNS[type];
+    return Array.isArray(pat) && pat.length % 2 === 1 && pat.reduce((a, b) => a + b, 0) < minPhaseMs;
+  });
+  add('Patrones de vibración', hapticOk && HAPTIC_PATTERNS.inhale.join() !== HAPTIC_PATTERNS.exhale.join(), `fase más corta ${fmtNum(minPhaseMs / 1000)} s`);
+
+  // 7) Rachas y recordatorio (octubre de 2026: el lunes es el día 5).
+  const oct = (day, h = 10) => new Date(2026, 9, day, h).toISOString();
+  const sep = (day) => new Date(2026, 8, day, 10).toISOString();
+  const hist = [oct(7), oct(6), oct(6, 20), oct(5), oct(1), sep(20), sep(21), sep(22), sep(23), sep(24)]
+    .map((iso) => ({ id: iso, techniqueId: 'box', variant: 'default', startedAt: iso, durationSec: 60, cyclesCompleted: 4, completed: true }));
+  const s1 = computeStats(hist, new Date(2026, 9, 7, 12));
+  add('Racha actual (practicó hoy)', s1.streak === 3 && s1.practicedToday, `${s1.streak} días`);
+  add('Mejor racha', s1.bestStreak === 5, `${s1.bestStreak} días`);
+  add('Días practicados en la semana', s1.weekDays.map(Number).join('') === '1110000' && s1.weekDayCount === 3, s1.weekDays.map(Number).join(''));
+  const s2 = computeStats(hist, new Date(2026, 9, 8, 9));
+  add('Racha sigue viva si aún no practica hoy', s2.streak === 3 && !s2.practicedToday, `${s2.streak} días`);
+  const s3 = computeStats(hist, new Date(2026, 9, 9, 9));
+  add('Racha se corta tras un día sin práctica', s3.streak === 0 && s3.bestStreak === 5, `${s3.streak} días · mejor ${s3.bestStreak}`);
+  const nexts = [
+    nextReminderStart('21:00', 'daily', new Date(2026, 9, 7, 10)),
+    nextReminderStart('08:00', 'daily', new Date(2026, 9, 7, 10)),
+    nextReminderStart('08:00', 'weekdays', new Date(2026, 9, 9, 10)), // viernes → lunes 12
+  ].map(icsLocal);
+  add('Recordatorio: próxima ocurrencia', nexts.join() === '20261007T210000,20261008T080000,20261012T080000', nexts.join(' · '));
+  const ics = buildICS({ time: '08:00', days: 'weekdays', now: new Date(2026, 9, 9, 10), url: 'https://example.org/respira/', id: 'prueba' });
+  const enc = new TextEncoder();
+  const icsBytes = ics.split('\r\n').map((l) => enc.encode(l).length);
+  add('Archivo .ics', ics.includes('\r\nDTSTART:20261012T080000\r\n') && ics.includes('\r\nRRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR\r\n')
+    && ics.replace(/\r\n /g, '').includes('\r\nDESCRIPTION:Abre Respira y elige una técnica: https://example.org/respira/\r\n')
+    && icsBytes.every((n) => n <= 75) && ics.endsWith('END:VCALENDAR\r\n'),
+  `${icsBytes.length - 1} líneas · máx. ${Math.max(...icsBytes)} octetos`);
+  const gcal = new URL(googleCalendarURL({ time: '21:00', days: 'daily', now: new Date(2026, 9, 7, 10), url: 'https://example.org/respira/' }));
+  add('Enlace de Google Calendar', gcal.searchParams.get('dates') === '20261007T210000/20261007T210500' && gcal.searchParams.get('recur') === 'RRULE:FREQ=DAILY', gcal.searchParams.get('dates'));
+
   const failed = rows.filter((r) => r.resultado !== 'OK');
   const title = `Respira · autoverificación: ${rows.length - failed.length}/${rows.length} pruebas OK`;
   console.group(title);
@@ -3163,7 +3413,14 @@ window.__respiraSelfTest = async function respiraSelfTest(opts = {}) {
   return { ok: failed.length === 0, passed: rows.length - failed.length, failed: failed.length, rows };
 };
 
-init();
+loadContent().then(init, showLoadError);
+
+/* Uso sin conexión e instalación como app (ver sw.js). Requiere HTTPS o localhost. */
+if ('serviceWorker' in navigator && window.isSecureContext) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch((err) => console.warn('Respira: no se pudo registrar el service worker.', err));
+  });
+}
 </script>
 </body>
 </html>

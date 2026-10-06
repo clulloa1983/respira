@@ -1,0 +1,450 @@
+{
+  "locale": "es",
+  "phaseLabels": { "inhale": "Inhala", "hold": "Retén", "exhale": "Exhala", "holdEmpty": "Sostén vacío" },
+  "referenceTypes": {
+    "meta-analysis": "Metaanálisis",
+    "review": "Revisión",
+    "study": "Estudio",
+    "outreach": "Divulgación"
+  },
+  "notices": {
+    "holds": "Las retenciones deben sentirse cómodas: si aparece urgencia por respirar, mareo u hormigueo, acórtalas o vuelve a respirar sin pausas. No practiques retenciones mientras manejas ni en el agua."
+  },
+  "taxonomy": {
+    "focus": {
+      "label": "Foco fisiológico",
+      "options": {
+        "parasympathetic": "Calma parasimpática",
+        "hrv": "Equilibrio autonómico / HRV",
+        "alert": "Calma con alerta",
+        "airway": "Control de la falta de aire"
+      }
+    },
+    "moment": {
+      "label": "Momento",
+      "options": {
+        "sleep": "Antes de dormir",
+        "anxiety": "Ansiedad o pánico",
+        "pressure": "Alta presión / concentración",
+        "break": "Pausa en la jornada",
+        "waking": "Al despertar",
+        "overload": "Sobrecarga emocional",
+        "exertion": "Durante o tras un esfuerzo"
+      }
+    },
+    "benefit": {
+      "label": "Beneficio",
+      "options": {
+        "sleep": "Dormir mejor",
+        "anxiety": "Reducir ansiedad",
+        "focus": "Enfoque",
+        "hrv": "Resiliencia / HRV",
+        "muscle": "Soltar tensión muscular",
+        "breathless": "Manejar la falta de aire"
+      }
+    }
+  },
+  "needs": {
+    "sleep": {
+      "label": "Dormir mejor",
+      "hint": "Soltar el día antes de acostarme",
+      "reason": "Su exhalación prolongada favorece la calma y la sesión dura menos de 2 minutos: fácil de hacer ya acostado."
+    },
+    "anxiety": {
+      "label": "Calmar la ansiedad",
+      "hint": "Ansiedad, pánico o irritación",
+      "reason": "En un ensayo de un mes, 5 minutos diarios de suspiro cíclico mejoraron el ánimo más que la meditación. Pocos ciclos ya ayudan a bajar la activación."
+    },
+    "focus": {
+      "label": "Concentrarme bajo presión",
+      "hint": "Trabajo, deporte, un momento exigente",
+      "reason": "Su ritmo lento y estructurado busca calmarte sin perder la alerta."
+    },
+    "reset": {
+      "label": "Una pausa para regularme",
+      "hint": "Estrés del día o sobrecarga emocional",
+      "reason": "Respirar a unas 6 respiraciones por minuto aumenta la variabilidad cardíaca (HRV), asociada a una mejor regulación del estrés."
+    },
+    "tension": {
+      "label": "Soltar tensión del cuerpo",
+      "hint": "Tensión muscular acumulada",
+      "reason": "Llevar el aire al abdomen favorece una respiración lenta y ayuda a soltar la tensión."
+    }
+  },
+  "techniques": {
+    "478": {
+      "name": "Técnica 4-7-8",
+      "tagline": "Respiración relajante",
+      "summary": {
+        "benefit": "Relajarse antes de dormir o en un momento de ansiedad",
+        "moment": "Antes de dormir, ansiedad o pánico"
+      },
+      "focusText": "Calma parasimpática",
+      "why": "La exhalación prolongada se asocia a más actividad del nervio vago y de la respuesta parasimpática, la que calma al cuerpo. En un estudio pequeño, una sola sesión bajó levemente la frecuencia cardíaca y la presión sistólica.",
+      "evidence": "Hay poca investigación específica sobre esta técnica. En un estudio con 43 adultos jóvenes sanos (Vierra et al. 2022), una sola sesión aumentó los marcadores de actividad parasimpática y bajó la frecuencia cardíaca y la presión sistólica justo después de practicarla. No hay ensayos amplios sobre sueño o ansiedad con la 4-7-8 en particular: su uso se apoya en la evidencia general sobre ejercicios de respiración, que muestra efectos pequeños a moderados sobre el estrés y la ansiedad (Fincham et al. 2023).",
+      "moments": ["Antes de dormir", "Ansiedad o pánico", "Irritación", "Estrés acumulado"],
+      "benefits": ["Relajarse antes de dormir", "Calmar la ansiedad del momento"],
+      "dose": "Empieza con 4 ciclos y, con la práctica, avanza hasta 8. Cada sesión dura menos de 2 minutos y puedes repetirla un par de veces al día.",
+      "posture": "Siéntate o acuéstate en una postura cómoda, con los hombros sueltos.",
+      "steps": [
+        "Siéntate o acuéstate en una postura cómoda.",
+        "Inhala por la nariz, en silencio, durante 4 segundos.",
+        "Retén el aire durante 7 segundos.",
+        "Exhala por la boca durante 8 segundos, con los labios fruncidos y un sonido «whoosh».",
+        "Eso es un ciclo (19 s). Empieza con 4 ciclos."
+      ],
+      "precautions": [
+        "Puede causar mareo las primeras veces: practícala en posición sentada o acostada.",
+        "Evita la retención si tienes EPOC, asma grave u otra enfermedad pulmonar: el CO₂ retenido puede resultar incómodo."
+      ],
+      "recommendNote": "Sugerencia: empieza con 4 ciclos y avanza hasta 8 a medida que ganes práctica.",
+      "variantControl": {
+        "label": "Modo principiante",
+        "description": "2 · 3,5 · 4 s. Mismo ritmo proporcional: lo importante es la cadencia, no los segundos."
+      },
+      "variants": {
+        "standard": {
+          "label": "Estándar",
+          "cues": [
+            "Por la nariz, en silencio",
+            "Sostén el aire con suavidad",
+            "Por la boca, labios fruncidos: suelta con un «whoosh»"
+          ]
+        },
+        "beginner": {
+          "label": "Principiante",
+          "tag": "principiante",
+          "cues": [
+            "Por la nariz, en silencio",
+            "Sostén el aire con suavidad",
+            "Por la boca, labios fruncidos: suelta con un «whoosh»"
+          ]
+        }
+      }
+    },
+    "box": {
+      "name": "Respiración cuadrada",
+      "tagline": "Box breathing",
+      "summary": {
+        "benefit": "Calma con alerta mental",
+        "moment": "Alta presión, concentración serena"
+      },
+      "focusText": "Ritmo lento y estructurado · calma con alerta",
+      "why": "Sus cuatro fases iguales marcan un ritmo lento y regular, de menos de 4 respiraciones por minuto, y piden atención en cada fase. Respirar lento se asocia a más actividad parasimpática, y su estructura simple la hace fácil de usar en momentos de presión.",
+      "evidence": "En un ensayo aleatorizado de un mes (Balban et al. 2023), 5 minutos diarios de ejercicios de respiración, entre ellos la cuadrada, mejoraron el ánimo más que la meditación; el mayor efecto fue con el suspiro cíclico, no con la cuadrada. La respiración lenta en general se asocia a más calma y menos activación (Zaccaro et al. 2018). Su uso para rendir bajo presión es popular, pero no está bien estudiado.",
+      "moments": [
+        "Situaciones de alta presión (trabajo, deporte)",
+        "Cuando necesitas concentración serena"
+      ],
+      "benefits": ["Calma sin perder la alerta", "Recuperar el foco en un momento exigente"],
+      "dose": "4 ciclos o más, según lo que necesites.",
+      "posture": "Siéntate con la espalda erguida y los hombros sueltos.",
+      "steps": [
+        "Siéntate con la espalda erguida (es preferible practicarla en posición sentada).",
+        "Inhala durante 4 segundos.",
+        "Retén con los pulmones llenos durante 4 segundos.",
+        "Exhala durante 4 segundos.",
+        "Sostén con los pulmones vacíos durante 4 segundos.",
+        "Eso es un ciclo (16 s). Repite 4 ciclos o más."
+      ],
+      "precautions": [
+        "Si tienes EPOC o insuficiencia respiratoria, acorta o evita las retenciones.",
+        "Es preferible practicarla en posición sentada."
+      ],
+      "variants": {
+        "default": {
+          "label": "Cuadrada",
+          "cues": [
+            "Llena los pulmones de forma pareja",
+            "Pulmones llenos, sin tensión",
+            "Suelta el aire de forma lenta y pareja",
+            "Pulmones vacíos, en quietud"
+          ]
+        }
+      }
+    },
+    "coherent": {
+      "name": "Respiración coherente",
+      "tagline": "Coherencia cardíaca · resonante",
+      "summary": {
+        "benefit": "Regular el estrés",
+        "moment": "Rutina diaria, pausas, sobrecarga emocional"
+      },
+      "focusText": "Variabilidad de la frecuencia cardíaca (HRV), barorreflejo",
+      "why": "Respirar a unas 6 respiraciones por minuto (~0,1 Hz) coincide con la frecuencia de resonancia del barorreflejo y amplifica la arritmia sinusal respiratoria. Así aumenta la variabilidad de la frecuencia cardíaca (HRV) mientras practicas; una HRV más alta se asocia a una mejor regulación del estrés.",
+      "evidence": "Es la técnica de este grupo con mejor respaldo. Un metaanálisis de 223 estudios (Laborde et al. 2022) concluye que la respiración lenta voluntaria aumenta la HRV vagal durante la práctica, justo después de una sesión y tras programas de varias sesiones. El ritmo de 5,5 respiraciones por minuto, con inhalación y exhalación iguales, fue el que más aumentó la HRV en un estudio comparativo (Lin et al. 2014). Que esto se traduzca en menos estrés a largo plazo está menos demostrado.",
+      "moments": ["Rutina diaria", "Pausas en la jornada", "Sobrecarga emocional"],
+      "benefits": ["Aumentar la HRV", "Regular el estrés"],
+      "dose": "5 a 10 minutos diarios.",
+      "posture": "Adopta una postura cómoda y deja que el aire fluya sin pausas.",
+      "steps": [
+        "Adopta una postura cómoda.",
+        "Inhala de forma suave y continua (5 s en el ritmo base).",
+        "Exhala sin pausa entre una fase y otra (5 s en el ritmo base).",
+        "Mantén el ritmo, cerca de 6 respiraciones por minuto, durante 5 a 10 minutos."
+      ],
+      "precautions": [
+        "Suele ser bien tolerada. Si notas fatiga o sensación de falta de aire, cambia a un ritmo que te resulte cómodo."
+      ],
+      "variantControl": { "label": "Ritmo" },
+      "variants": {
+        "5-5": {
+          "label": "Ritmo 5/5",
+          "description": "≈6 respiraciones por minuto (~0,1 Hz).",
+          "cues": ["Suave y continuo", "Suelta sin pausa, sin forzar"]
+        },
+        "5.5-5.5": {
+          "label": "Ritmo 5,5/5,5",
+          "description": "≈5,5 respiraciones por minuto: la que más aumentó la HRV en el estudio de Lin et al. (2014).",
+          "cues": ["Suave y continuo", "Suelta sin pausa, sin forzar"]
+        },
+        "4-6": {
+          "label": "Ritmo 4/6",
+          "description": "Exhalación más larga que la inhalación, si te resulta más cómoda.",
+          "cues": ["Suave y continuo", "Suelta despacio, más largo que al inhalar"]
+        }
+      }
+    },
+    "diaphragmatic": {
+      "name": "Respiración diafragmática",
+      "tagline": "Respiración abdominal",
+      "summary": {
+        "benefit": "Soltar tensión y bajar el estrés",
+        "moment": "Al despertar, antes de dormir, pausas"
+      },
+      "focusText": "Calma parasimpática",
+      "why": "Llevar el aire al abdomen favorece una respiración más lenta y profunda, que se asocia a más actividad parasimpática y a menos tensión en el cuello y los hombros.",
+      "evidence": "La evidencia es prometedora pero preliminar. Una revisión sistemática (Hopper et al. 2019) encontró solo 3 estudios, todos con menos estrés medido con cuestionarios o con marcadores como el cortisol y la presión arterial. En un ensayo de 8 semanas con 40 adultos y un protocolo intensivo (Ma et al. 2017), el grupo que practicó tuvo menos afecto negativo, mejor atención sostenida y cortisol más bajo. Son estudios pequeños.",
+      "moments": ["Al despertar", "Antes de dormir", "Pausas laborales", "Tensión muscular"],
+      "benefits": ["Bajar el estrés", "Soltar tensión muscular"],
+      "dose": "5 a 10 minutos diarios.",
+      "posture": "Acuéstate boca arriba o siéntate con la espalda erguida. Una mano en el pecho y otra en el abdomen: el abdomen sube, el pecho casi no se mueve.",
+      "steps": [
+        "Acuéstate boca arriba o siéntate con la espalda erguida.",
+        "Coloca una mano en el pecho y otra en el abdomen.",
+        "Inhala por la nariz durante 4 segundos llevando el aire al abdomen: el abdomen sube y el pecho casi no se mueve.",
+        "Retén el aire durante 2 segundos.",
+        "Exhala por la boca durante 6 segundos, con los labios fruncidos."
+      ],
+      "precautions": [
+        "No hagas pujo ni maniobras tipo Valsalva si tienes enfermedad valvular o coronaria, ni tras una cirugía abdominal u ocular reciente."
+      ],
+      "variants": {
+        "default": {
+          "label": "Pautada",
+          "cues": [
+            "Por la nariz, lleva el aire al abdomen",
+            "Pausa breve, sin apretar",
+            "Por la boca, labios fruncidos"
+          ]
+        }
+      }
+    },
+    "sigh": {
+      "name": "Suspiro cíclico",
+      "tagline": "Suspiro fisiológico, repetido",
+      "summary": {
+        "benefit": "Bajar la activación y mejorar el ánimo",
+        "moment": "Estrés del momento, pausas, sobrecarga"
+      },
+      "focusText": "Exhalación prolongada · calma parasimpática",
+      "why": "Dos inhalaciones seguidas por la nariz llenan bien los pulmones, y una exhalación larga por la boca vacía el aire con calma. Es la forma en que el cuerpo suspira de manera espontánea; hacerlo a propósito y de forma pausada pone el énfasis en exhalar, lo que se asocia a menos activación.",
+      "evidence": "Es una de las técnicas con evidencia más reciente. En un ensayo aleatorizado de un mes (Balban et al. 2023), los ejercicios de respiración mejoraron el ánimo y bajaron la frecuencia respiratoria en reposo más que la meditación, y el suspiro cíclico fue el que más mejoró el ánimo. Es un solo estudio, hecho a distancia con personas sanas: falta confirmarlo.",
+      "moments": ["Estrés del momento", "Pausas en la jornada", "Sobrecarga emocional"],
+      "benefits": ["Bajar la activación", "Mejorar el ánimo"],
+      "dose": "5 minutos al día, como en el estudio. En un momento de estrés, bastan unos pocos ciclos.",
+      "posture": "Siéntate o acuéstate cómodo. Inhala por la nariz y exhala por la boca.",
+      "steps": [
+        "Inhala por la nariz hasta llenar bien los pulmones.",
+        "Sin soltar el aire, haz una segunda inhalación corta para llenarlos del todo.",
+        "Exhala por la boca, lento y largo, hasta vaciarlos.",
+        "Repite a un ritmo pausado durante unos 5 minutos."
+      ],
+      "precautions": [
+        "La segunda inhalación es corta: no fuerces los pulmones al límite.",
+        "Si sientes mareo, alarga la exhalación o haz una pausa: la idea es respirar más lento, no más rápido."
+      ],
+      "variants": {
+        "default": {
+          "label": "Pautado",
+          "labels": ["Inhala", "Inhala un poco más", "Exhala"],
+          "cues": [
+            "Por la nariz, llena los pulmones",
+            "Una segunda inhalación corta, por la nariz",
+            "Por la boca, lento y largo"
+          ]
+        }
+      }
+    },
+    "pursed": {
+      "name": "Respiración con labios fruncidos",
+      "tagline": "Exhalar como soplando una vela",
+      "summary": {
+        "benefit": "Respirar más lento cuando falta el aire",
+        "moment": "Al subir escaleras, caminar o tras un esfuerzo"
+      },
+      "focusText": "Exhalación lenta con resistencia",
+      "why": "Exhalar despacio con los labios fruncidos crea una leve resistencia que mantiene abiertas las vías aéreas por más tiempo. Así baja la frecuencia respiratoria y entra más aire en cada respiración. Es una técnica habitual en la rehabilitación de la EPOC.",
+      "evidence": "Es la más estudiada en personas con EPOC. Un metaanálisis (Ubolnuar et al. 2019) encontró que, mientras se practica, baja la frecuencia respiratoria y aumenta el volumen de cada respiración, pero no mejoró por sí sola la sensación de falta de aire ni la distancia caminada. Una revisión anterior (Roberts et al. 2009) describe además mejor saturación de oxígeno en reposo y una recuperación más rápida tras el esfuerzo. En personas sin enfermedad pulmonar hay poca investigación.",
+      "moments": [
+        "Al subir escaleras o caminar rápido",
+        "Tras un esfuerzo",
+        "Cuando sientes que te falta el aire"
+      ],
+      "benefits": ["Respirar más lento", "Recuperarte tras un esfuerzo"],
+      "dose": "Úsala durante o después de un esfuerzo. Para aprenderla, practica 2 a 5 minutos en reposo.",
+      "posture": "Siéntate con los hombros relajados. Inhala por la nariz y exhala con los labios fruncidos, como para silbar.",
+      "steps": [
+        "Relaja el cuello y los hombros.",
+        "Inhala por la nariz, con la boca cerrada, durante 2 segundos.",
+        "Frunce los labios como para silbar o soplar una vela.",
+        "Exhala despacio por los labios fruncidos durante 4 segundos, el doble de lo que duró la inhalación."
+      ],
+      "precautions": [
+        "Si tienes EPOC u otra enfermedad respiratoria, apréndela con tu equipo de salud: es un complemento de tu tratamiento, no lo reemplaza.",
+        "No soples con fuerza: la exhalación es suave, como para hacer titilar una vela sin apagarla."
+      ],
+      "variantControl": { "label": "Ritmo" },
+      "variants": {
+        "2-4": {
+          "label": "Ritmo 2/4",
+          "description": "El ritmo habitual para aprenderla.",
+          "cues": ["Por la nariz, con la boca cerrada", "Labios fruncidos, suave y lento"]
+        },
+        "3-6": {
+          "label": "Ritmo 3/6",
+          "description": "Más lento, si te resulta cómodo.",
+          "cues": ["Por la nariz, con la boca cerrada", "Labios fruncidos, suave y lento"]
+        }
+      }
+    },
+    "nadi": {
+      "name": "Respiración alterna",
+      "tagline": "Nadi Shodhana",
+      "summary": {
+        "benefit": "Concentrarte con un ritmo lento",
+        "moment": "Pausas, antes de una tarea exigente"
+      },
+      "focusText": "Respiración lenta y atención sostenida",
+      "why": "Inhalar por una fosa nasal y exhalar por la otra obliga a respirar despacio y a prestar atención a cada fase. Ese ritmo lento se asocia a más actividad parasimpática; la alternancia es, sobre todo, un ancla para la atención.",
+      "evidence": "La evidencia es mixta. Una revisión de 44 ensayos (Ghiya 2017) reporta bajas en el pulso, la frecuencia respiratoria y la presión arterial, pero los estudios son pequeños y de calidad variable. En un ensayo aleatorizado con 30 estudiantes (Kamath et al. 2017), 15 minutos de respiración alterna no redujeron de forma significativa la ansiedad antes de hablar en público. Gran parte de su efecto probablemente se deba al ritmo lento.",
+      "moments": ["Pausas en la jornada", "Antes de una tarea exigente", "Para empezar a meditar"],
+      "benefits": ["Concentrarte", "Respirar con calma"],
+      "dose": "5 a 10 minutos.",
+      "posture": "Siéntate con la espalda erguida. Con la mano derecha, usa el pulgar para tapar la fosa nasal derecha y el anular para la izquierda; deja la otra mano en tu regazo.",
+      "steps": [
+        "Tapa la fosa nasal derecha con el pulgar e inhala por la izquierda.",
+        "Tapa la izquierda con el anular, suelta la derecha y exhala por ella.",
+        "Inhala por la derecha.",
+        "Tápala, suelta la izquierda y exhala por ella. Eso es un ciclo.",
+        "Repite sin retener el aire entre fases."
+      ],
+      "precautions": [
+        "Si tienes la nariz congestionada, espera a que se despeje o respira sin tapar las fosas nasales.",
+        "Esta versión no tiene retenciones: no las agregues si eres principiante."
+      ],
+      "variantControl": { "label": "Ritmo" },
+      "variants": {
+        "4-4": {
+          "label": "Ritmo 4/4",
+          "description": "Inhalación y exhalación iguales.",
+          "labels": [
+            "Inhala por la izquierda",
+            "Exhala por la derecha",
+            "Inhala por la derecha",
+            "Exhala por la izquierda"
+          ],
+          "cues": [
+            "Tapa la derecha con el pulgar",
+            "Tapa la izquierda, suelta la derecha",
+            "Mantén la izquierda tapada",
+            "Tapa la derecha, suelta la izquierda"
+          ]
+        },
+        "4-6": {
+          "label": "Ritmo 4/6",
+          "description": "Exhalación más larga que la inhalación.",
+          "labels": [
+            "Inhala por la izquierda",
+            "Exhala por la derecha",
+            "Inhala por la derecha",
+            "Exhala por la izquierda"
+          ],
+          "cues": [
+            "Tapa la derecha con el pulgar",
+            "Tapa la izquierda, suelta la derecha",
+            "Mantén la izquierda tapada",
+            "Tapa la derecha, suelta la izquierda"
+          ]
+        }
+      }
+    },
+    "bhramari": {
+      "name": "Respiración de la abeja",
+      "tagline": "Bhramari",
+      "summary": {
+        "benefit": "Alargar la exhalación con un zumbido",
+        "moment": "Antes de dormir, sobrecarga"
+      },
+      "focusText": "Exhalación prolongada con sonido",
+      "why": "Exhalar zumbando con la boca cerrada alarga la exhalación de forma natural y da algo concreto en qué enfocarse: el sonido y la vibración. La exhalación larga se asocia a la calma parasimpática.",
+      "evidence": "La evidencia es muy limitada. Una revisión sistemática (Kuppusamy et al. 2018) encontró solo 6 estudios, ninguno aleatorizado y todos de calidad muy baja, que sugieren un predominio parasimpático durante la práctica. Se sabe que zumbar multiplica unas 15 veces el óxido nítrico en la nariz (Weitzberg y Lundberg 2002), pero no está claro qué beneficio práctico tiene eso.",
+      "moments": ["Antes de dormir", "Sobrecarga emocional", "Cuando la mente no se detiene"],
+      "benefits": ["Alargar la exhalación", "Enfocar la atención en el sonido"],
+      "dose": "5 a 10 ciclos, o unos 3 minutos.",
+      "posture": "Siéntate cómodo, con la boca cerrada y la mandíbula relajada (los dientes no se tocan).",
+      "steps": [
+        "Inhala por la nariz durante 4 segundos.",
+        "Con la boca cerrada, exhala por la nariz haciendo un zumbido suave, como una abeja: «mmm».",
+        "Sostén el zumbido hasta vaciar los pulmones, unos 8 segundos.",
+        "Repite sin forzar el volumen."
+      ],
+      "precautions": [
+        "El zumbido es suave: no fuerces la garganta.",
+        "Si tienes una infección de oído o de las vías respiratorias altas, espera a recuperarte."
+      ],
+      "variants": {
+        "default": {
+          "label": "Pautada",
+          "labels": ["Inhala", "Exhala zumbando"],
+          "cues": ["Por la nariz, sin ruido", "Boca cerrada: «mmm» suave y parejo"]
+        }
+      }
+    },
+    "ujjayi": {
+      "name": "Respiración oceánica",
+      "tagline": "Ujjayi",
+      "summary": {
+        "benefit": "Un ritmo lento y audible",
+        "moment": "Pausas, antes de una tarea exigente"
+      },
+      "focusText": "Respiración lenta con leve resistencia en la garganta",
+      "why": "Cerrar un poco la garganta al respirar por la nariz produce un sonido suave, parecido al del mar, que ayuda a sostener un ritmo lento y parejo. Su efecto se explica sobre todo por ese ritmo, de unas 6 respiraciones por minuto.",
+      "evidence": "En un estudio con 17 adultos jóvenes sin experiencia en yoga (Mason et al. 2013), respirar a 6 respiraciones por minuto mejoró la sensibilidad del barorreflejo y la saturación de oxígeno; agregar el sonido ujjayi dio una mejora algo menor del barorreflejo y no bajó la presión arterial. Es decir, lo que cuenta es el ritmo lento, que tiene buen respaldo (Zaccaro et al. 2018); el sonido sirve sobre todo para sostenerlo.",
+      "moments": ["Pausas en la jornada", "Antes de una tarea exigente", "Durante el yoga"],
+      "benefits": ["Sostener un ritmo lento", "Enfocar la atención en el sonido"],
+      "dose": "5 a 10 minutos.",
+      "posture": "Siéntate con la espalda erguida y la boca cerrada. Respira solo por la nariz.",
+      "steps": [
+        "Para encontrar el sonido, exhala por la boca como si empañaras un espejo: «haaa».",
+        "Mantén esa leve contracción en la garganta y cierra la boca.",
+        "Inhala por la nariz durante 5 segundos, con un sonido suave.",
+        "Exhala por la nariz durante 5 segundos, con el mismo sonido."
+      ],
+      "precautions": [
+        "El sonido nace de cerrar un poco la garganta, sin apretarla: si sientes tensión o carraspera, suaviza.",
+        "Si te mareas, vuelve a respirar sin el sonido."
+      ],
+      "variants": {
+        "default": {
+          "label": "Ritmo 5/5",
+          "labels": ["Inhala con sonido", "Exhala con sonido"],
+          "cues": [
+            "Por la nariz, garganta apenas cerrada",
+            "Por la nariz, sonido suave como el mar"
+          ]
+        }
+      }
+    }
+  }
+}

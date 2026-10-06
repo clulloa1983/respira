@@ -1,0 +1,466 @@
+{
+  "techniques": [
+    {
+      "id": "478",
+      "visual": "circle",
+      "tags": {
+        "focus": ["parasympathetic"],
+        "moment": ["sleep", "anxiety"],
+        "benefit": ["sleep", "anxiety"]
+      },
+      "defaults": { "mode": "cycles", "cycles": 4, "minutes": 1, "variant": "standard" },
+      "limits": {
+        "cycles": [1, 12],
+        "minutes": [1, 4]
+      },
+      "refs": ["vierra2022", "fincham2023", "gerritsen2018", "bupa-478"],
+      "recommendedCycles": 4,
+      "variantControl": { "kind": "switch", "on": "beginner", "off": "standard" },
+      "variants": [
+        {
+          "id": "standard",
+          "phases": [
+            { "type": "inhale", "seconds": 4 },
+            { "type": "hold", "seconds": 7 },
+            { "type": "exhale", "seconds": 8 }
+          ]
+        },
+        {
+          "id": "beginner",
+          "maxCycles": 8,
+          "phases": [
+            { "type": "inhale", "seconds": 2 },
+            { "type": "hold", "seconds": 3.5 },
+            { "type": "exhale", "seconds": 4 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "box",
+      "visual": "box",
+      "tags": {
+        "focus": ["hrv", "alert"],
+        "moment": ["pressure"],
+        "benefit": ["focus"]
+      },
+      "defaults": { "mode": "cycles", "cycles": 4, "minutes": 2, "variant": "default" },
+      "limits": {
+        "cycles": [1, 40],
+        "minutes": [1, 10]
+      },
+      "refs": ["balban2023", "zaccaro2018"],
+      "variants": [
+        {
+          "id": "default",
+          "phases": [
+            { "type": "inhale", "seconds": 4 },
+            { "type": "hold", "seconds": 4 },
+            { "type": "exhale", "seconds": 4 },
+            { "type": "holdEmpty", "seconds": 4 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "coherent",
+      "visual": "circle",
+      "tags": {
+        "focus": ["hrv"],
+        "moment": ["break", "overload"],
+        "benefit": ["hrv"]
+      },
+      "defaults": { "mode": "minutes", "cycles": 30, "minutes": 5, "variant": "5-5" },
+      "limits": {
+        "cycles": [1, 180],
+        "minutes": [1, 30]
+      },
+      "refs": ["laborde2022", "lin2014", "zaccaro2018"],
+      "variantControl": { "kind": "radio" },
+      "variants": [
+        {
+          "id": "5-5",
+          "phases": [
+            { "type": "inhale", "seconds": 5 },
+            { "type": "exhale", "seconds": 5 }
+          ]
+        },
+        {
+          "id": "5.5-5.5",
+          "phases": [
+            { "type": "inhale", "seconds": 5.5 },
+            { "type": "exhale", "seconds": 5.5 }
+          ]
+        },
+        {
+          "id": "4-6",
+          "phases": [
+            { "type": "inhale", "seconds": 4 },
+            { "type": "exhale", "seconds": 6 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "diaphragmatic",
+      "visual": "circle",
+      "tags": {
+        "focus": ["parasympathetic"],
+        "moment": ["sleep", "break", "waking"],
+        "benefit": ["muscle"]
+      },
+      "defaults": { "mode": "minutes", "cycles": 25, "minutes": 5, "variant": "default" },
+      "limits": {
+        "cycles": [1, 150],
+        "minutes": [1, 30]
+      },
+      "refs": ["hopper2019", "ma2017", "banner-diaphragmatic", "apepoc-diaphragmatic"],
+      "variants": [
+        {
+          "id": "default",
+          "phases": [
+            { "type": "inhale", "seconds": 4 },
+            { "type": "hold", "seconds": 2 },
+            { "type": "exhale", "seconds": 6 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sigh",
+      "visual": "circle",
+      "tags": {
+        "focus": ["parasympathetic"],
+        "moment": ["anxiety", "break", "overload"],
+        "benefit": ["anxiety"]
+      },
+      "defaults": { "mode": "minutes", "cycles": 20, "minutes": 5, "variant": "default" },
+      "limits": {
+        "cycles": [1, 100],
+        "minutes": [1, 15]
+      },
+      "refs": ["balban2023", "zaccaro2018"],
+      "variants": [
+        {
+          "id": "default",
+          "phases": [
+            { "type": "inhale", "seconds": 2, "to": 0.7 },
+            { "type": "inhale", "seconds": 1, "to": 1 },
+            { "type": "exhale", "seconds": 6 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pursed",
+      "visual": "circle",
+      "tags": {
+        "focus": ["airway"],
+        "moment": ["exertion"],
+        "benefit": ["breathless"]
+      },
+      "defaults": { "mode": "minutes", "cycles": 30, "minutes": 3, "variant": "2-4" },
+      "limits": {
+        "cycles": [1, 150],
+        "minutes": [1, 15]
+      },
+      "refs": ["ubolnuar2019", "roberts2009", "apepoc-diaphragmatic"],
+      "variantControl": { "kind": "radio" },
+      "variants": [
+        {
+          "id": "2-4",
+          "phases": [
+            { "type": "inhale", "seconds": 2 },
+            { "type": "exhale", "seconds": 4 }
+          ]
+        },
+        {
+          "id": "3-6",
+          "phases": [
+            { "type": "inhale", "seconds": 3 },
+            { "type": "exhale", "seconds": 6 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nadi",
+      "visual": "circle",
+      "tags": {
+        "focus": ["hrv"],
+        "moment": ["break", "pressure"],
+        "benefit": ["focus"]
+      },
+      "defaults": { "mode": "minutes", "cycles": 15, "minutes": 5, "variant": "4-4" },
+      "limits": {
+        "cycles": [1, 60],
+        "minutes": [1, 20]
+      },
+      "refs": ["ghiya2017", "kamath2017", "arhanta-nadi"],
+      "variantControl": { "kind": "radio" },
+      "variants": [
+        {
+          "id": "4-4",
+          "phases": [
+            { "type": "inhale", "seconds": 4 },
+            { "type": "exhale", "seconds": 4 },
+            { "type": "inhale", "seconds": 4 },
+            { "type": "exhale", "seconds": 4 }
+          ]
+        },
+        {
+          "id": "4-6",
+          "phases": [
+            { "type": "inhale", "seconds": 4 },
+            { "type": "exhale", "seconds": 6 },
+            { "type": "inhale", "seconds": 4 },
+            { "type": "exhale", "seconds": 6 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bhramari",
+      "visual": "circle",
+      "tags": {
+        "focus": ["parasympathetic"],
+        "moment": ["sleep", "overload"],
+        "benefit": []
+      },
+      "defaults": { "mode": "cycles", "cycles": 7, "minutes": 3, "variant": "default" },
+      "limits": {
+        "cycles": [1, 30],
+        "minutes": [1, 10]
+      },
+      "refs": ["kuppusamy2018", "weitzberg2002"],
+      "variants": [
+        {
+          "id": "default",
+          "phases": [
+            { "type": "inhale", "seconds": 4 },
+            { "type": "exhale", "seconds": 8 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ujjayi",
+      "visual": "circle",
+      "tags": {
+        "focus": ["hrv"],
+        "moment": ["break", "pressure"],
+        "benefit": ["focus"]
+      },
+      "defaults": { "mode": "minutes", "cycles": 30, "minutes": 5, "variant": "default" },
+      "limits": {
+        "cycles": [1, 180],
+        "minutes": [1, 30]
+      },
+      "refs": ["mason2013", "zaccaro2018"],
+      "variants": [
+        {
+          "id": "default",
+          "phases": [
+            { "type": "inhale", "seconds": 5 },
+            { "type": "exhale", "seconds": 5 }
+          ]
+        }
+      ]
+    }
+  ],
+  "taxonomy": [
+    {
+      "key": "focus",
+      "options": ["parasympathetic", "hrv", "alert", "airway"]
+    },
+    {
+      "key": "moment",
+      "options": ["sleep", "anxiety", "pressure", "break", "waking", "overload", "exertion"]
+    },
+    {
+      "key": "benefit",
+      "options": ["sleep", "anxiety", "focus", "hrv", "muscle", "breathless"]
+    }
+  ],
+  "needs": [
+    { "id": "sleep", "technique": "478" },
+    { "id": "anxiety", "technique": "sigh" },
+    { "id": "focus", "technique": "box" },
+    { "id": "reset", "technique": "coherent" },
+    { "id": "tension", "technique": "diaphragmatic" }
+  ],
+  "references": [
+    {
+      "id": "laborde2022",
+      "type": "meta-analysis",
+      "authors": "Laborde S, et al.",
+      "year": 2022,
+      "title": "Effects of voluntary slow breathing on heart rate and heart rate variability: A systematic review and a meta-analysis",
+      "source": "Neuroscience & Biobehavioral Reviews",
+      "url": "https://doi.org/10.1016/j.neubiorev.2022.104711"
+    },
+    {
+      "id": "fincham2023",
+      "type": "meta-analysis",
+      "authors": "Fincham GW, et al.",
+      "year": 2023,
+      "title": "Effect of breathwork on stress and mental health: A meta-analysis of randomised-controlled trials",
+      "source": "Scientific Reports",
+      "url": "https://doi.org/10.1038/s41598-022-27247-y"
+    },
+    {
+      "id": "zaccaro2018",
+      "type": "review",
+      "authors": "Zaccaro A, et al.",
+      "year": 2018,
+      "title": "How Breath-Control Can Change Your Life: A Systematic Review on Psycho-Physiological Correlates of Slow Breathing",
+      "source": "Frontiers in Human Neuroscience",
+      "url": "https://doi.org/10.3389/fnhum.2018.00353"
+    },
+    {
+      "id": "hopper2019",
+      "type": "review",
+      "authors": "Hopper SI, et al.",
+      "year": 2019,
+      "title": "Effectiveness of diaphragmatic breathing for reducing physiological and psychological stress in adults: a quantitative systematic review",
+      "source": "JBI Database of Systematic Reviews and Implementation Reports",
+      "url": "https://doi.org/10.11124/JBISRIR-2017-003848"
+    },
+    {
+      "id": "gerritsen2018",
+      "type": "review",
+      "authors": "Gerritsen RJS, Band GPH",
+      "year": 2018,
+      "title": "Breath of Life: The Respiratory Vagal Stimulation Model of Contemplative Activity",
+      "source": "Frontiers in Human Neuroscience",
+      "url": "https://doi.org/10.3389/fnhum.2018.00397"
+    },
+    {
+      "id": "balban2023",
+      "type": "study",
+      "authors": "Balban MY, et al.",
+      "year": 2023,
+      "title": "Brief structured respiration practices enhance mood and reduce physiological arousal",
+      "source": "Cell Reports Medicine",
+      "url": "https://doi.org/10.1016/j.xcrm.2022.100895"
+    },
+    {
+      "id": "lin2014",
+      "type": "study",
+      "authors": "Lin IM, Tai LY, Fan SY",
+      "year": 2014,
+      "title": "Breathing at a rate of 5.5 breaths per minute with equal inhalation-to-exhalation ratio increases heart rate variability",
+      "source": "International Journal of Psychophysiology",
+      "url": "https://doi.org/10.1016/j.ijpsycho.2013.12.006"
+    },
+    {
+      "id": "vierra2022",
+      "type": "study",
+      "authors": "Vierra J, Boonla O, Prasertsri P",
+      "year": 2022,
+      "title": "Effects of sleep deprivation and 4-7-8 breathing control on heart rate variability, blood pressure, blood glucose, and endothelial function in healthy young adults",
+      "source": "Physiological Reports",
+      "url": "https://doi.org/10.14814/phy2.15389"
+    },
+    {
+      "id": "ma2017",
+      "type": "study",
+      "authors": "Ma X, et al.",
+      "year": 2017,
+      "title": "The Effect of Diaphragmatic Breathing on Attention, Negative Affect and Stress in Healthy Adults",
+      "source": "Frontiers in Psychology",
+      "url": "https://doi.org/10.3389/fpsyg.2017.00874"
+    },
+    {
+      "id": "bupa-478",
+      "type": "outreach",
+      "title": "Respiración 4-7-8 para la relajación y control de la ansiedad",
+      "source": "Bupa Latinoamérica",
+      "url": "https://www.bupasalud.com/salud/respiracion-4-7-8"
+    },
+    {
+      "id": "banner-diaphragmatic",
+      "type": "outreach",
+      "title": "Cómo la respiración diafragmática puede mejorar su salud",
+      "source": "Banner Health",
+      "url": "https://www.bannerhealth.com/es/healthcareblog/teach-me/the-life-changing-benefits-of-diaphragmatic-breathing"
+    },
+    {
+      "id": "apepoc-diaphragmatic",
+      "type": "outreach",
+      "title": "Estos son los principales beneficios de la respiración abdominal o diafragmática",
+      "source": "APEPOC",
+      "url": "https://www.apepoc.es/actualidad/654-estos-son-los-principales-beneficios-de-la-respiracion-abdominal-o-diafragmatica"
+    },
+    {
+      "id": "ubolnuar2019",
+      "type": "meta-analysis",
+      "authors": "Ubolnuar N, et al.",
+      "year": 2019,
+      "title": "Effects of Breathing Exercises in Patients With Chronic Obstructive Pulmonary Disease: Systematic Review and Meta-Analysis",
+      "source": "Annals of Rehabilitation Medicine",
+      "url": "https://doi.org/10.5535/arm.2019.43.4.509"
+    },
+    {
+      "id": "roberts2009",
+      "type": "review",
+      "authors": "Roberts SE, et al.",
+      "year": 2009,
+      "title": "The use of pursed lips breathing in stable chronic obstructive pulmonary disease: a systematic review of the evidence",
+      "source": "Physical Therapy Reviews",
+      "url": "https://doi.org/10.1179/174328809x452908"
+    },
+    {
+      "id": "ghiya2017",
+      "type": "review",
+      "authors": "Ghiya S",
+      "year": 2017,
+      "title": "Alternate nostril breathing: a systematic review of clinical trials",
+      "source": "International Journal of Research in Medical Sciences",
+      "url": "https://doi.org/10.18203/2320-6012.ijrms20173523"
+    },
+    {
+      "id": "kamath2017",
+      "type": "study",
+      "authors": "Kamath A, Urval RP, Shenoy AK",
+      "year": 2017,
+      "title": "Effect of Alternate Nostril Breathing Exercise on Experimentally Induced Anxiety in Healthy Volunteers Using the Simulated Public Speaking Model: A Randomized Controlled Pilot Study",
+      "source": "BioMed Research International",
+      "url": "https://doi.org/10.1155/2017/2450670"
+    },
+    {
+      "id": "kuppusamy2018",
+      "type": "review",
+      "authors": "Kuppusamy M, et al.",
+      "year": 2018,
+      "title": "Effects of Bhramari Pranayama on health – A systematic review",
+      "source": "Journal of Traditional and Complementary Medicine",
+      "url": "https://doi.org/10.1016/j.jtcme.2017.02.003"
+    },
+    {
+      "id": "weitzberg2002",
+      "type": "study",
+      "authors": "Weitzberg E, Lundberg JON",
+      "year": 2002,
+      "title": "Humming greatly increases nasal nitric oxide",
+      "source": "American Journal of Respiratory and Critical Care Medicine",
+      "url": "https://doi.org/10.1164/rccm.200202-138bc"
+    },
+    {
+      "id": "mason2013",
+      "type": "study",
+      "authors": "Mason H, et al.",
+      "year": 2013,
+      "title": "Cardiovascular and Respiratory Effect of Yogic Slow Breathing in the Yoga Beginner: What Is the Best Approach?",
+      "source": "Evidence-Based Complementary and Alternative Medicine",
+      "url": "https://doi.org/10.1155/2013/743504"
+    },
+    {
+      "id": "arhanta-nadi",
+      "type": "outreach",
+      "title": "Nadi Shodhana Pranayama: Complete Guide To Alternate Nostril Breathing",
+      "source": "Arhanta Yoga",
+      "url": "https://www.arhantayoga.org/blog/nadi-shodhana-pranayama/"
+    }
+  ]
+}
