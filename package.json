@@ -1,0 +1,14 @@
+{
+  "name": "respira",
+  "private": true,
+  "description": "App web de respiración guiada (pruebas automatizadas con Playwright)",
+  "type": "module",
+  "scripts": {
+    "serve": "node tests/server.mjs",
+    "test": "playwright test",
+    "test:report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0"
+  }
+}

@@ -29,6 +29,39 @@ Luego abre <http://localhost:8000/>. Para correr la autoverificación del motor 
 await __respiraSelfTest()
 ```
 
+## Pruebas automatizadas (Playwright)
+
+Requieren Node.js y Microsoft Edge instalado; no hay que descargar navegadores.
+
+```bash
+npm install
+```
+
+```bash
+npm test
+```
+
+`npm test` levanta un servidor local (`tests/server.mjs`) que sirve la app bajo `/respira/`, como GitHub Pages, y corre las pruebas en dos proyectos:
+
+- **escritorio** (1280 × 900) — `tests/app.spec.mjs` y `tests/pwa.spec.mjs`:
+  - la autoverificación interna;
+  - las 9 técnicas, con su evidencia, referencias https y el aviso de retenciones;
+  - los filtros y el asistente;
+  - una práctica completa, con reloj simulado, que queda en el historial;
+  - la doble inhalación del suspiro;
+  - el `.ics` y el enlace de Google Calendar;
+  - la PWA instalable, sin conexión y con red primero.
+- **telefono** (360 × 780, táctil) — `tests/movil.spec.mjs`:
+  - que ninguna vista se desborde;
+  - la navegación inferior centrada;
+  - las tarjetas compactas;
+  - la barra «Comenzar»;
+  - Inicio con y sin historial;
+  - `#/repetir`;
+  - la práctica nocturna.
+
+Cualquier excepción no capturada en la página hace fallar la prueba. Si algo falla, `npm run test:report` abre el informe con el paso a paso (traza) de cada prueba fallida.
+
 ## Uso sin conexión e instalación (PWA)
 
 `sw.js` guarda en caché todos los archivos de la app en la primera visita. Usa **red primero**: con conexión siempre sirve lo publicado (revalidando con el servidor), y sin conexión, o si la red tarda más de 4 segundos, usa la última copia guardada.
