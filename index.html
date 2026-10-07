@@ -288,7 +288,7 @@ kbd { font-family: var(--font-sans); font-size: .85em; padding: .1em .45em; bord
     border-top: 1px solid var(--border);
   }
   .nav-list { display: grid; grid-template-columns: repeat(3, 1fr); padding: 0; border: 0; background: none; box-shadow: none; }
-  .nav-list a { flex-direction: column; gap: .125rem; min-height: 3.25rem; padding: var(--sp-1); border-radius: var(--r-md); font-size: .75rem; }
+  .nav-list a { display: flex; width: 100%; flex-direction: column; gap: .125rem; min-height: 3.25rem; padding: var(--sp-1); border-radius: var(--r-md); font-size: .75rem; }
   .nav-list a[aria-current="page"] { box-shadow: none; }
   .nav-icon { width: 1.375rem; height: 1.375rem; }
   .toast { bottom: calc(5rem + env(safe-area-inset-bottom)); }
