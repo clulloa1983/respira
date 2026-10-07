@@ -1,6 +1,6 @@
 # Respira
 
-App web de respiración guiada con 9 técnicas (4-7-8, cuadrada, coherente, diafragmática, suspiro cíclico, labios fruncidos, respiración alterna, abeja y oceánica) con guía visual, tonos, voz y vibración. Sin dependencias ni paso de compilación: es HTML, CSS y JavaScript servidos tal cual desde GitHub Pages.
+App web de respiración guiada con 9 técnicas (4-7-8, cuadrada, coherente, diafragmática, suspiro cíclico, labios fruncidos, respiración alterna, abeja y oceánica) con guía visual, tonos y voz. Sin dependencias ni paso de compilación: es HTML, CSS y JavaScript servidos tal cual desde GitHub Pages.
 
 ## Estructura
 

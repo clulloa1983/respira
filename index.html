@@ -1105,21 +1105,6 @@ dialog p { color: var(--text-muted); }
           </div>
         </section>
 
-        <section class="card" aria-labelledby="setHapticTitle" id="hapticCard" hidden>
-          <h2 id="setHapticTitle" class="h-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="8" y="4" width="8" height="16" rx="2"/><path d="M11 17h2"/><path d="M4.75 9v6"/><path d="M19.25 9v6"/><path d="M2 11v2"/><path d="M22 11v2"/></svg>Vibración</h2>
-          <div class="setting">
-            <div>
-              <label for="setHaptics">Vibrar al cambiar de fase</label>
-              <p class="desc" id="setHapticsDesc">Para practicar con los ojos cerrados: al inhalar, pulsos que se alargan; al exhalar, pulsos que se acortan; dos toques al retener y uno al sostener vacío.</p>
-            </div>
-            <input type="checkbox" role="switch" class="switch" id="setHaptics" aria-describedby="setHapticsDesc">
-          </div>
-          <div class="setting">
-            <button type="button" class="btn btn-secondary" id="testHaptics">Probar vibración</button>
-          </div>
-          <p class="desc">Funciona mientras la pantalla está encendida; Respira intenta mantenerla así durante la práctica. Si el teléfono está en modo silencio, algunos equipos no vibran.</p>
-        </section>
-
         <section class="card" aria-labelledby="setVoiceTitle">
           <h2 id="setVoiceTitle" class="h-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5.5 5h13A1.5 1.5 0 0 1 20 6.5v8a1.5 1.5 0 0 1-1.5 1.5h-7.5l-4 3.5V16h-1.5A1.5 1.5 0 0 1 4 14.5v-8A1.5 1.5 0 0 1 5.5 5z"/><path d="M8.5 10.5h1"/><path d="M11.5 9v3"/><path d="M14.5 10.5h1"/></svg>Voz</h2>
           <p class="banner" id="voiceUnsupported" hidden>Este navegador no ofrece síntesis de voz, así que la opción de voz no está disponible. Puedes guiarte con los tonos y el texto en pantalla.</p>
@@ -1575,14 +1560,13 @@ function planSession(tech, cfg) {
    ========================================================= */
 const STORE_KEY = 'respira:v1';
 const MAX_SESSIONS = 5000;
-const DEFAULT_PREFS = Object.freeze({ tones: true, voice: true, volume: 0.7, voiceRate: 1, voiceURI: '', voiceCycles: 0, theme: 'auto', motion: 'auto', haptics: false, lastTechnique: null, weeklyGoal: 5, reminderTime: '21:00', reminderDays: 'daily' });
+const DEFAULT_PREFS = Object.freeze({ tones: true, voice: true, volume: 0.7, voiceRate: 1, voiceURI: '', voiceCycles: 0, theme: 'auto', motion: 'auto', lastTechnique: null, weeklyGoal: 5, reminderTime: '21:00', reminderDays: 'daily' });
 
 function sanitizePrefs(p) {
   const d = { ...DEFAULT_PREFS, configs: {} };
   if (!p || typeof p !== 'object') return d;
   if (typeof p.tones === 'boolean') d.tones = p.tones;
   if (typeof p.voice === 'boolean') d.voice = p.voice;
-  if (typeof p.haptics === 'boolean') d.haptics = p.haptics;
   if (Number.isFinite(p.volume)) d.volume = clamp(p.volume, 0, 1);
   if (Number.isFinite(p.voiceRate)) d.voiceRate = clamp(p.voiceRate, 0.6, 1.4);
   if (typeof p.voiceURI === 'string') d.voiceURI = p.voiceURI;
@@ -1830,33 +1814,6 @@ const Voice = {
 };
 
 function unlockMedia() { Sound.ensure(); Voice.prime(); }
-
-/* =========================================================
-   5b. VIBRACIÓN (Vibration API)
-   Un patrón distinto al empezar cada fase, para practicar sin
-   mirar la pantalla. Solo Android: iOS no ofrece esta API. Se
-   ofrece únicamente en pantallas táctiles, porque en escritorio
-   la API existe pero no hay motor que vibre.
-   ========================================================= */
-const HAPTIC_PATTERNS = Object.freeze({
-  inhale: [40, 70, 80, 70, 160], // pulsos que se alargan
-  exhale: [160, 70, 80, 70, 40], // pulsos que se acortan
-  hold: [70, 110, 70], // dos toques
-  holdEmpty: [70], // un toque
-  tick: [20], // cuenta regresiva
-  done: [60, 120, 60, 120, 240], // sesión completada
-});
-
-const Haptics = {
-  supported: typeof navigator.vibrate === 'function' && window.matchMedia('(pointer: coarse)').matches,
-  play(name, { force = false } = {}) {
-    if (!this.supported || (!prefs().haptics && !force)) return;
-    try { navigator.vibrate(HAPTIC_PATTERNS[name]); } catch (e) { /* la vibración nunca debe interrumpir la práctica */ }
-  },
-  cancel() {
-    if (this.supported) { try { navigator.vibrate(0); } catch (e) { /* sin efecto */ } }
-  },
-};
 
 /* =========================================================
    6. WAKE LOCK (pantalla encendida durante la práctica)
@@ -2400,7 +2357,6 @@ const Practice = {
     this.stopLoop();
     Sound.silence();
     Voice.cancel();
-    Haptics.cancel();
     Wake.release();
   },
 
@@ -2486,7 +2442,7 @@ const Practice = {
 
   onEvent(ev) {
     if (ev.type === 'state') this.applyState(ev.to, ev.from);
-    else if (ev.type === 'count') { if (prefs().tones) Sound.tick(); Haptics.play('tick'); }
+    else if (ev.type === 'count') { if (prefs().tones) Sound.tick(); }
     else if (ev.type === 'phase') this.onPhase(ev);
     else if (ev.type === 'finish') this.onFinish();
   },
@@ -2507,7 +2463,6 @@ const Practice = {
 
     if (live) { this.loop(); Wake.request(); } else { this.stopLoop(); Wake.release(); }
     if (to === 'paused' || to === 'stopped' || to === 'finished') { Sound.silence(); Voice.cancel(); }
-    if (to === 'paused' || to === 'stopped') Haptics.cancel();
 
     if (to === 'countdown' && from === 'idle') {
       el.phaseName.textContent = 'Prepárate';
@@ -2524,7 +2479,6 @@ const Practice = {
       if (to === 'running' && snap.phase) {
         this.announce(`Continúa: ${phaseLabel(snap.phase)}.`);
         Voice.speak(phaseLabel(snap.phase));
-        Haptics.play(snap.phase.type);
       } else {
         this.announce('Continúa la preparación.');
       }
@@ -2544,7 +2498,6 @@ const Practice = {
     const p = prefs();
     if (p.tones) Sound.phase(ph.type, ph.seconds);
     if (p.voice && (p.voiceCycles === 0 || ev.cycle < p.voiceCycles)) Voice.speak(phaseLabel(ph));
-    Haptics.play(ph.type);
   },
 
   onFinish() {
@@ -2552,7 +2505,6 @@ const Practice = {
     const saved = this.saveSession(true, snap);
     if (prefs().tones) Sound.chime();
     Voice.speak('Sesión completada');
-    Haptics.play('done');
     this.showSummary(true, snap, saved);
     this.announce(`Sesión completada: ${plural(snap.cyclesCompleted, 'ciclo', 'ciclos')} en ${fmtDuration(snap.sessionMs / 1000)}.`);
   },
@@ -2992,13 +2944,6 @@ const SettingsView = {
       setTimeout(() => Sound.phase('exhale', 3), 3000);
     });
     $('#testVoice').addEventListener('click', () => Voice.speak('Inhala. Retén. Exhala.', { force: true }));
-    $('#hapticCard').hidden = !Haptics.supported;
-    $('#setHaptics').addEventListener('change', () => { p.haptics = $('#setHaptics').checked; if (!p.haptics) Haptics.cancel(); Store.save(); });
-    $('#testHaptics').addEventListener('click', () => {
-      Haptics.play('inhale', { force: true });
-      setTimeout(() => Haptics.play('hold', { force: true }), 1500);
-      setTimeout(() => Haptics.play('exhale', { force: true }), 3000);
-    });
     $$('input[name="theme"]').forEach((r) => r.addEventListener('change', () => { p.theme = r.value; applyTheme(); Store.save(); }));
     $$('input[name="motion"]').forEach((r) => r.addEventListener('change', () => { p.motion = r.value; applyMotion(); Store.save(); }));
     $('#setGoal').addEventListener('change', () => { p.weeklyGoal = clamp(parseInt($('#setGoal').value, 10) || 5, 1, 7); Store.save(); });
@@ -3025,7 +2970,6 @@ const SettingsView = {
     const p = prefs();
     $('#setTones').checked = p.tones;
     $('#setVoice').checked = p.voice;
-    $('#setHaptics').checked = p.haptics;
     $('#setVolume').value = String(Math.round(p.volume * 100));
     $('#setRate').value = String(p.voiceRate);
     $('#setVoiceCycles').value = String(p.voiceCycles);
@@ -3367,15 +3311,7 @@ window.__respiraSelfTest = async function respiraSelfTest(opts = {}) {
     add(`Reloj real ×${speed} (4-7-8 principiante)`, maxErr < TOL && marks.length === phases.length * 3 + 1, `error máx. ${maxErr.toFixed(1)} ms`);
   }
 
-  // 6) Vibración: un patrón por fase, que termina vibrando y dura menos que la fase más corta.
-  const minPhaseMs = Math.min(...TECHNIQUES.flatMap((t) => t.variants.flatMap((v) => v.phases.map((p) => p.seconds * 1000))));
-  const hapticOk = PHASE_TYPES.every((type) => {
-    const pat = HAPTIC_PATTERNS[type];
-    return Array.isArray(pat) && pat.length % 2 === 1 && pat.reduce((a, b) => a + b, 0) < minPhaseMs;
-  });
-  add('Patrones de vibración', hapticOk && HAPTIC_PATTERNS.inhale.join() !== HAPTIC_PATTERNS.exhale.join(), `fase más corta ${fmtNum(minPhaseMs / 1000)} s`);
-
-  // 7) Rachas y recordatorio (octubre de 2026: el lunes es el día 5).
+  // 6) Rachas y recordatorio (octubre de 2026: el lunes es el día 5).
   const oct = (day, h = 10) => new Date(2026, 9, day, h).toISOString();
   const sep = (day) => new Date(2026, 8, day, 10).toISOString();
   const hist = [oct(7), oct(6), oct(6, 20), oct(5), oct(1), sep(20), sep(21), sep(22), sep(23), sep(24)]
