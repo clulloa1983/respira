@@ -11,11 +11,43 @@
   "orientation": "any",
   "background_color": "#f3f5f0",
   "theme_color": "#2e6a54",
-  "categories": ["health", "lifestyle"],
+  "categories": [
+    "health",
+    "lifestyle"
+  ],
   "icons": [
     { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
     { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
     { "src": "icons/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
     { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    {
+      "name": "Repetir la última práctica",
+      "short_name": "Repetir",
+      "description": "Abre la última técnica que practicaste, con tu configuración",
+      "url": "./#/repetir",
+      "icons": [
+        { "src": "icons/shortcut-repeat.png", "sizes": "192x192", "type": "image/png" }
+      ]
+    },
+    {
+      "name": "Suspiro cíclico",
+      "short_name": "Suspiro",
+      "description": "Para bajar la activación en pocos minutos",
+      "url": "./#/practica/sigh",
+      "icons": [
+        { "src": "icons/shortcut-sigh.png", "sizes": "192x192", "type": "image/png" }
+      ]
+    },
+    {
+      "name": "Técnica 4-7-8 para dormir",
+      "short_name": "4-7-8",
+      "description": "Una respiración relajante antes de dormir",
+      "url": "./#/practica/478",
+      "icons": [
+        { "src": "icons/shortcut-sleep.png", "sizes": "192x192", "type": "image/png" }
+      ]
+    }
   ]
 }

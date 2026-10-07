@@ -37,6 +37,7 @@ await __respiraSelfTest()
 - **Si agregas, renombras o eliminas un archivo**, actualiza la lista `PRECACHE` y sube la versión de `CACHE` (`respira-v1` → `respira-v2`), para que la caché vieja se borre.
 - El service worker solo funciona con HTTPS o en `localhost`. Para probarlo sin conexión: abre la app una vez, detén el servidor y recarga.
 - La voz usa las voces del sistema; algunas se descargan de internet y pueden no estar disponibles sin conexión. Los tonos funcionan siempre.
+- **Accesos directos:** `shortcuts` en el manifest define lo que aparece al mantener presionado el ícono de la app (Android y escritorio). `#/repetir` abre la última técnica practicada, o el inicio si no hay ninguna. Android solo los actualiza cuando Chrome renueva la app instalada, lo que puede tardar hasta un día; reinstalarla los aplica de inmediato.
 
 ## Añadir o editar una técnica
 

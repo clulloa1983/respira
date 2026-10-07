@@ -147,7 +147,8 @@ try {
     --grain-opacity: .07;
   }
 }
-:root[data-theme="dark"] {
+:root[data-theme="dark"],
+.practice.is-dim {
   color-scheme: dark;
   --bg: #0d1713;
   --glow-1: rgb(42 96 74 / .30);
@@ -276,12 +277,22 @@ kbd { font-family: var(--font-sans); font-size: .85em; padding: .1em .45em; bord
 .nav-icon { width: 1.2rem; height: 1.2rem; flex: none; }
 .nav-list a:hover { color: var(--text); background: var(--surface-2); }
 .nav-list a[aria-current="page"] { color: var(--accent-text); background: var(--accent-soft); font-weight: 650; box-shadow: inset 0 0 0 1px var(--accent); }
+/* Teléfono: la navegación pasa a una barra fija abajo, al alcance del pulgar. */
 @media (max-width: 34em) {
-  .app-header nav { width: 100%; }
-  .nav-list { display: grid; grid-template-columns: repeat(3, 1fr); }
-  .nav-list a { padding-inline: var(--sp-2); }
+  body:not([data-view="practice"]) { padding-bottom: calc(4.25rem + env(safe-area-inset-bottom)); }
+  .app-header nav {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+    padding: var(--sp-1) max(.5rem, env(safe-area-inset-right)) max(var(--sp-1), env(safe-area-inset-bottom)) max(.5rem, env(safe-area-inset-left));
+    background: color-mix(in oklab, var(--bg) 90%, transparent);
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    border-top: 1px solid var(--border);
+  }
+  .nav-list { display: grid; grid-template-columns: repeat(3, 1fr); padding: 0; border: 0; background: none; box-shadow: none; }
+  .nav-list a { flex-direction: column; gap: .125rem; min-height: 3.25rem; padding: var(--sp-1); border-radius: var(--r-md); font-size: .75rem; }
+  .nav-list a[aria-current="page"] { box-shadow: none; }
+  .nav-icon { width: 1.375rem; height: 1.375rem; }
+  .toast { bottom: calc(5rem + env(safe-area-inset-bottom)); }
 }
-@media (max-width: 24em) { .nav-icon { display: none; } }
 
 .app-footer { padding-top: var(--sp-7); padding-bottom: max(1.5rem, env(safe-area-inset-bottom)); color: var(--text-muted); font-size: var(--fs-sm); }
 .app-footer .wrap { border-top: 1px solid var(--border); padding-top: var(--sp-5); }
@@ -418,6 +429,17 @@ input[type="range"]:focus-visible { outline: 3px solid var(--focus); outline-off
 .hero h1 { margin-bottom: var(--sp-4); }
 .lede { font-size: clamp(1.0625rem, 1rem + .3vw, 1.1875rem); color: var(--text-muted); max-width: 36rem; }
 .last-practice { margin: var(--sp-5) 0 0; }
+/* Teléfono, con historial: sin presentación; «Repetir» y la racha quedan en la primera pantalla. */
+@media (max-width: 34em) {
+  #view-home.is-returning .hero { grid-template-columns: minmax(0, 1fr); padding-block: var(--sp-4) var(--sp-5); }
+  #view-home.is-returning .hero-orb,
+  #view-home.is-returning .hero .eyebrow,
+  #view-home.is-returning .lede { display: none; }
+  #view-home.is-returning .hero h1 { margin-bottom: 0; font-size: clamp(1.75rem, 7.5vw, 2.25rem); }
+  #view-home.is-returning .last-practice { margin-top: var(--sp-4); }
+  #view-home.is-returning .last-practice .btn { width: 100%; justify-content: flex-start; }
+  #view-home.is-returning .streak { margin-top: var(--sp-3); max-width: none; }
+}
 .streak { margin-top: var(--sp-5); display: grid; gap: var(--sp-3); max-width: 26rem; padding: var(--sp-4); border-radius: var(--r-lg); background: var(--surface); border: 1px solid var(--border); }
 .streak-main { margin: 0; display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 var(--sp-2); font-weight: 600; }
 .streak-main strong { font-family: var(--font-serif); font-size: var(--fs-2xl); font-weight: 500; line-height: 1; color: var(--accent-text); font-variant-numeric: tabular-nums; }
@@ -515,6 +537,19 @@ input[type="range"]:focus-visible { outline: 3px solid var(--focus); outline-off
 .tech-foot { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2) var(--sp-3); margin-top: auto; padding-top: var(--sp-3); border-top: 1px solid var(--border); }
 .tech-foot:empty { display: none; }
 .tech-variants { margin: 0; font-size: var(--fs-sm); color: var(--text-muted); }
+/* Teléfono: tarjeta en una fila (miniatura + nombre, patrón y beneficio) para recorrer la lista sin tanto desplazamiento. */
+@media (max-width: 34em) {
+  .tech-grid { gap: var(--sp-3); }
+  .tech-card { flex-direction: row; align-items: flex-start; gap: var(--sp-3); padding: var(--sp-3); }
+  .tech-art { flex: none; width: 5.5rem; aspect-ratio: 1; }
+  .tech-body { gap: .375rem; padding-inline: 0; min-width: 0; }
+  .tech-tagline, .tech-card .wave, .tech-facts dt, .tech-facts div + div, .tech-variants { display: none; }
+  .tech-name { font-size: 1.125rem; line-height: 1.25; }
+  .tech-pattern-row { gap: var(--sp-2); }
+  .tech-pattern { font-size: var(--fs-lg); }
+  .tech-facts { margin: 0; font-size: var(--fs-sm); line-height: 1.4; color: var(--text-muted); }
+  .tech-foot { margin-top: .125rem; padding-top: 0; border-top: 0; }
+}
 .empty { padding: var(--sp-6) var(--sp-5); border: 1px dashed var(--border-strong); border-radius: var(--r-lg); text-align: center; background: var(--surface); }
 
 .wave { display: block; width: 100%; height: 2.75rem; }
@@ -569,6 +604,20 @@ input[type="range"]:focus-visible { outline: 3px solid var(--focus); outline-off
 .pi-label::before { content: ""; width: .5rem; height: .5rem; border-radius: 50%; background: var(--c); }
 .pi-sec { font-family: var(--font-serif); font-size: 1.75rem; font-weight: 500; line-height: 1.1; font-variant-numeric: tabular-nums; }
 .pi-cue { font-size: var(--fs-sm); color: var(--text-muted); line-height: 1.4; }
+/* Barra flotante para empezar sin bajar hasta la configuración (solo cuando el detalle va en una columna). */
+.start-bar {
+  position: sticky; bottom: max(var(--sp-3), env(safe-area-inset-bottom)); z-index: 5;
+  display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3);
+  margin-top: var(--sp-5); padding: var(--sp-2) var(--sp-2) var(--sp-2) var(--sp-4);
+  background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--r-pill); box-shadow: var(--sh-2);
+  transition: opacity var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out);
+}
+.start-bar.is-idle { opacity: 0; transform: translateY(.5rem); pointer-events: none; }
+.start-bar-info { margin: 0; min-width: 0; font-size: var(--fs-sm); line-height: 1.35; color: var(--text-muted); }
+.start-bar-info strong { display: block; color: var(--text); font-size: .9375rem; }
+.start-bar .btn { flex: none; }
+@media (min-width: 62em) { .start-bar { display: none; } }
+@media (max-width: 34em) { .start-bar { bottom: calc(4.75rem + env(safe-area-inset-bottom)); } }
 .cycle-line { margin: var(--sp-4) 0 0; color: var(--text-muted); }
 .cycle-line strong { color: var(--text); }
 .detail-pattern .wave { height: 4.5rem; margin-top: var(--sp-2); }
@@ -622,6 +671,12 @@ input[type="range"]:focus-visible { outline: 3px solid var(--focus); outline-off
 .practice[data-phase="exhale"] { --ph: var(--ph-exhale); --ph-soft: var(--ph-exhale-soft); }
 .practice[data-phase="holdEmpty"] { --ph: var(--ph-empty); --ph-soft: var(--ph-empty-soft); }
 .practice:not([hidden]) { animation: view-in var(--dur-3) var(--ease-out); }
+/* Práctica nocturna (antes de dormir): fondo negro, tokens oscuros y luz mínima. */
+.practice.is-dim { --bg: #000; --surface: #070c09; --surface-2: #0d1511; --text: #aebdb4; --text-muted: #73857b; color: var(--text); background-color: #000; background-image: radial-gradient(120% 72% at 50% 32%, color-mix(in oklab, var(--ph-soft) 40%, transparent), transparent 72%); }
+.practice.is-dim .stage { filter: brightness(.6) saturate(.8); }
+.practice.is-dim .practice-top,
+.practice.is-dim .practice-panel { opacity: .75; }
+.practice.is-dim .controls .btn-primary { filter: brightness(.65); }
 
 .practice-top {
   display: flex; align-items: center; gap: var(--sp-3);
@@ -870,8 +925,8 @@ dialog p { color: var(--text-muted); }
           <p class="eyebrow">Respiración consciente, guiada</p>
           <h1 id="home-title" tabindex="-1" data-focus>Un momento para respirar</h1>
           <p class="lede">Elige una técnica según lo que tu cuerpo necesita ahora y practícala con una guía visual, tonos suaves y voz. Todo funciona sin conexión.</p>
-          <div class="streak" id="streakCard" hidden></div>
           <p class="last-practice" id="lastPractice" hidden></p>
+          <div class="streak" id="streakCard" hidden></div>
         </div>
         <div class="hero-orb" aria-hidden="true"><span></span><span></span><span><svg viewBox="0 0 72 72" focusable="false"><path d="M18 36c4.5-11 13.5-11 18 0s13.5 11 18 0" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg></span><i class="hero-dot"></i></div>
       </div>
@@ -1162,6 +1217,15 @@ dialog p { color: var(--text-muted); }
               <label class="seg-opt"><input type="radio" name="motion" value="reduce"><span>Reducido</span></label>
             </div>
             <p class="desc">Con movimiento reducido, el círculo no cambia de tamaño: una barra muestra el avance de cada fase y la opacidad cambia suavemente.</p>
+          </fieldset>
+          <fieldset class="setting stack">
+            <legend>Práctica nocturna</legend>
+            <div class="seg-track">
+              <label class="seg-opt"><input type="radio" name="dim" value="auto"><span>De noche</span></label>
+              <label class="seg-opt"><input type="radio" name="dim" value="on"><span>Siempre</span></label>
+              <label class="seg-opt"><input type="radio" name="dim" value="off"><span>Nunca</span></label>
+            </div>
+            <p class="desc">Durante la práctica, fondo negro y luz mínima para no encandilarte, por ejemplo antes de dormir. «De noche» la activa entre las 21:00 y las 6:00.</p>
           </fieldset>
         </section>
 
@@ -1560,7 +1624,7 @@ function planSession(tech, cfg) {
    ========================================================= */
 const STORE_KEY = 'respira:v1';
 const MAX_SESSIONS = 5000;
-const DEFAULT_PREFS = Object.freeze({ tones: true, voice: true, volume: 0.7, voiceRate: 1, voiceURI: '', voiceCycles: 0, theme: 'auto', motion: 'auto', lastTechnique: null, weeklyGoal: 5, reminderTime: '21:00', reminderDays: 'daily' });
+const DEFAULT_PREFS = Object.freeze({ tones: true, voice: true, volume: 0.7, voiceRate: 1, voiceURI: '', voiceCycles: 0, theme: 'auto', motion: 'auto', dimMode: 'auto', lastTechnique: null, weeklyGoal: 5, reminderTime: '21:00', reminderDays: 'daily' });
 
 function sanitizePrefs(p) {
   const d = { ...DEFAULT_PREFS, configs: {} };
@@ -1573,6 +1637,7 @@ function sanitizePrefs(p) {
   if (Number.isInteger(p.voiceCycles) && p.voiceCycles >= 0 && p.voiceCycles <= 50) d.voiceCycles = p.voiceCycles;
   if (['auto', 'light', 'dark'].includes(p.theme)) d.theme = p.theme;
   if (['auto', 'reduce'].includes(p.motion)) d.motion = p.motion;
+  if (['auto', 'on', 'off'].includes(p.dimMode)) d.dimMode = p.dimMode;
   if (typeof p.lastTechnique === 'string' && byId(p.lastTechnique)) d.lastTechnique = p.lastTechnique;
   if (Number.isInteger(p.weeklyGoal) && p.weeklyGoal >= 1 && p.weeklyGoal <= 7) d.weeklyGoal = p.weeklyGoal;
   if (typeof p.reminderTime === 'string' && /^([01]\d|2[0-3]):[0-5]\d$/.test(p.reminderTime)) d.reminderTime = p.reminderTime;
@@ -1903,6 +1968,11 @@ function applyTheme() {
   const dark = t === 'dark' || (t === 'auto' && mqDark.matches);
   $('meta[name="theme-color"]').setAttribute('content', dark ? '#0d1714' : '#f3f7f5');
 }
+/* Práctica nocturna: «auto» la activa entre las 21:00 y las 6:00 (hora local). */
+const DIM_FROM_HOUR = 21;
+const DIM_TO_HOUR = 6;
+const isDimPractice = (mode, now = new Date()) => mode === 'on' || (mode === 'auto' && (now.getHours() >= DIM_FROM_HOUR || now.getHours() < DIM_TO_HOUR));
+
 function applyMotion() {
   document.documentElement.classList.toggle('reduce-motion', prefs().motion === 'reduce');
   Practice.refreshVisual();
@@ -1985,6 +2055,7 @@ const HomeView = {
   renderStreak() {
     const el = $('#streakCard');
     const sessions = Store.data.sessions;
+    $('#view-home').classList.toggle('is-returning', sessions.length > 0 || !!byId(prefs().lastTechnique));
     el.hidden = !sessions.length;
     if (!sessions.length) return;
     const now = new Date();
@@ -2079,10 +2150,21 @@ const DetailView = {
       if (!b) return;
       if (b.id === 'cfgMinus') this.step(-1);
       else if (b.id === 'cfgPlus') this.step(1);
-      else if (b.id === 'cfgBegin') this.begin();
+      else if (b.id === 'cfgBegin' || b.id === 'startBarBtn') this.begin();
     });
   },
   key() { return this.cfg.mode === 'minutes' ? 'minutes' : 'cycles'; },
+  /* La barra flotante se oculta mientras el botón «Comenzar práctica» de la configuración está a la vista. */
+  watchBegin() {
+    if (this.beginObserver) this.beginObserver.disconnect();
+    const bar = $('#startBar');
+    if (!('IntersectionObserver' in window)) return;
+    this.beginObserver = new IntersectionObserver(([entry]) => {
+      bar.classList.toggle('is-idle', entry.isIntersecting);
+      bar.inert = entry.isIntersecting;
+    });
+    this.beginObserver.observe($('#cfgBegin'));
+  },
   limits() {
     const t = this.tech;
     if (this.cfg.mode === 'minutes') return t.limits.minutes;
@@ -2142,7 +2224,12 @@ const DetailView = {
           </ol>
           ${tech.refs.some((r) => r.type === 'outreach') ? '<p class="fine refs-note">Los artículos de divulgación explican la técnica, pero no son evidencia científica.</p>' : ''}
         </section>
+      </div>
+      <div class="start-bar" id="startBar">
+        <p class="start-bar-info" id="startBarInfo" aria-live="polite"></p>
+        <button type="button" class="btn btn-primary" id="startBarBtn">${ICON.play}Comenzar</button>
       </div>`;
+    this.watchBegin();
     $('#view-detail').setAttribute('aria-labelledby', 'detail-title');
     this.syncAmount();
   },
@@ -2258,6 +2345,8 @@ const DetailView = {
     note.hidden = !notes.length;
     note.textContent = notes.join(' ');
     $('#cfgEstimate').innerHTML = `Duración estimada: <strong>${fmtDuration(plan.totalMs / 1000)}</strong> · ${plural(plan.cycles, 'ciclo', 'ciclos')}`;
+    const vName = variantName(t, plan.variant);
+    $('#startBarInfo').innerHTML = `<strong>${esc(fmtDuration(plan.totalMs / 1000))} · ${esc(plural(plan.cycles, 'ciclo', 'ciclos'))}</strong>${vName ? esc(vName) : esc(patternText(plan.phases))}`;
     saveConfig(t.id, c);
   },
   begin() {
@@ -2347,6 +2436,7 @@ const Practice = {
 
   enter(tech) {
     if (!(this.tech === tech && this.isLive())) this.prepare(tech);
+    this.applyDim();
     this.syncQuick();
     if (this.autostart) { this.autostart = false; this.start(); }
   },
@@ -2358,6 +2448,15 @@ const Practice = {
     Sound.silence();
     Voice.cancel();
     Wake.release();
+    this.root.classList.remove('is-dim');
+    applyTheme(); // devuelve el color de la barra del sistema
+  },
+
+  applyDim() {
+    const dim = isDimPractice(prefs().dimMode);
+    this.root.classList.toggle('is-dim', dim);
+    if (dim) $('meta[name="theme-color"]').setAttribute('content', '#000000');
+    else applyTheme();
   },
 
   prepare(tech, message = '') {
@@ -2946,6 +3045,7 @@ const SettingsView = {
     $('#testVoice').addEventListener('click', () => Voice.speak('Inhala. Retén. Exhala.', { force: true }));
     $$('input[name="theme"]').forEach((r) => r.addEventListener('change', () => { p.theme = r.value; applyTheme(); Store.save(); }));
     $$('input[name="motion"]').forEach((r) => r.addEventListener('change', () => { p.motion = r.value; applyMotion(); Store.save(); }));
+    $$('input[name="dim"]').forEach((r) => r.addEventListener('change', () => { p.dimMode = r.value; Store.save(); }));
     $('#setGoal').addEventListener('change', () => { p.weeklyGoal = clamp(parseInt($('#setGoal').value, 10) || 5, 1, 7); Store.save(); });
     $('#setRemTime').addEventListener('change', () => {
       const v = $('#setRemTime').value;
@@ -2976,6 +3076,7 @@ const SettingsView = {
     if (!$('#setVoiceCycles').value) $('#setVoiceCycles').value = '0';
     $$('input[name="theme"]').forEach((r) => { r.checked = r.value === p.theme; });
     $$('input[name="motion"]').forEach((r) => { r.checked = r.value === p.motion; });
+    $$('input[name="dim"]').forEach((r) => { r.checked = r.value === p.dimMode; });
     $('#setGoal').value = String(p.weeklyGoal);
     $('#setRemTime').value = p.reminderTime;
     $('#setRemDays').value = p.reminderDays;
@@ -3037,6 +3138,14 @@ function route(initial = false) {
   let id = '';
   try { id = decodeURIComponent(rawId); } catch (e) { id = ''; }
   const tech = byId(id);
+  // Acceso directo «Repetir la última práctica» (manifest): abre la última técnica o, si no hay, el inicio.
+  if (name === 'repetir') {
+    const last = byId(prefs().lastTechnique);
+    // replaceState no dispara hashchange: se reescribe la URL y se enruta una sola vez.
+    history.replaceState(null, '', last ? `#/practica/${last.id}` : '#/');
+    route(initial);
+    return;
+  }
   if (currentView === 'practice' && name !== 'practica') Practice.leave();
 
   if (name === 'tecnica' && tech) {
@@ -3311,7 +3420,13 @@ window.__respiraSelfTest = async function respiraSelfTest(opts = {}) {
     add(`Reloj real ×${speed} (4-7-8 principiante)`, maxErr < TOL && marks.length === phases.length * 3 + 1, `error máx. ${maxErr.toFixed(1)} ms`);
   }
 
-  // 6) Rachas y recordatorio (octubre de 2026: el lunes es el día 5).
+  // 6) Práctica nocturna.
+  const at = (h, m = 0) => new Date(2026, 9, 7, h, m);
+  const dimOk = isDimPractice('auto', at(21)) && isDimPractice('auto', at(23, 59)) && isDimPractice('auto', at(5, 59))
+    && !isDimPractice('auto', at(6)) && !isDimPractice('auto', at(20, 59)) && isDimPractice('on', at(12)) && !isDimPractice('off', at(23));
+  add('Práctica nocturna: horario', dimOk, 'automática de 21:00 a 6:00');
+
+  // 7) Rachas y recordatorio (octubre de 2026: el lunes es el día 5).
   const oct = (day, h = 10) => new Date(2026, 9, day, h).toISOString();
   const sep = (day) => new Date(2026, 8, day, 10).toISOString();
   const hist = [oct(7), oct(6), oct(6, 20), oct(5), oct(1), sep(20), sep(21), sep(22), sep(23), sep(24)]

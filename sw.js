@@ -6,7 +6,7 @@
    solo cuando cambia la lista PRECACHE. */
 'use strict';
 
-const CACHE = 'respira-v1';
+const CACHE = 'respira-v2';
 const NETWORK_TIMEOUT_MS = 4000;
 const PRECACHE = [
   './',
@@ -19,6 +19,9 @@ const PRECACHE = [
   'icons/icon-maskable-192.png',
   'icons/icon-maskable-512.png',
   'icons/apple-touch-icon.png',
+  'icons/shortcut-repeat.png',
+  'icons/shortcut-sigh.png',
+  'icons/shortcut-sleep.png',
 ];
 
 self.addEventListener('install', (event) => {
